@@ -1,8 +1,5 @@
 ---
-- name: Install Google Chrome
-  hosts: all 
-  become: true
-  ignore_errors: true
+- hosts: all 
   tasks:
   - name: Install the latest Google Chrome from Chocolately Internet Source
     win_chocolatey:
