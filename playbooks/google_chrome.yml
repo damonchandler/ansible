@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  ignore_errors: true
+  tasks: 
+  - name: Install the latest Google Chrome from Chocolately Internet Source
+    win_chocolatey:
+      name: googlechrome
+      version: '96.0.4664.110'
+      state: present
+...
