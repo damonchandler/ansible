@@ -1,0 +1,12 @@
+---
+- name: Apply Windows Updates
+  hosts: all
+  tasks:
+  - name: Apply Critical and Security Updates and Update Rollups
+    win_updates:
+      category_names: 
+        - CriticalUpdates
+        - SecurityUpdates
+      reboot: yes
+      reboot_timeout: 360
+...
