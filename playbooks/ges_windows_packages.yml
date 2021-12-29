@@ -1,0 +1,19 @@
+---
+- name: Install All Required Packages Using Chocolatey
+  hosts: all 
+  tasks:
+  - name: Install the latest application baseline from Chocolately Internet Source
+    win_chocolatey:
+      name: '{{ item }}'
+      state: present
+    loop: 
+    - firefox
+    - adobereader
+    - notepadplusplus
+    - 7zip
+    - git
+    - zoom
+    - filezilla
+    - vscode
+    - winscp
+...
