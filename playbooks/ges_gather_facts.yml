@@ -1,0 +1,7 @@
+---
+- name: Quick Fact Gathering Role
+  hosts: all 
+  tasks:
+  - name: Gather Facts On All Hosts
+    setup:
+...
