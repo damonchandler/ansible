@@ -7,6 +7,10 @@
       category_names: 
         - CriticalUpdates
         - SecurityUpdates
-      reboot: yes
-      reboot_timeout: 360
+        - UpdateRollups
+        - Updates
+        - ServicePacks
+  - name: Reboot Systems 5 minutes After updates Have Been Applied
+    win_reboot:
+      reboot_timeout: 300
 ...
