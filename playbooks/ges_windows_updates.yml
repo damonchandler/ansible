@@ -12,5 +12,5 @@
         - ServicePacks
   - name: Reboot Systems 5 minutes After updates Have Been Applied
     win_reboot:
-      reboot_timeout: 300
+      pre_reboot_delay: 300
 ...
