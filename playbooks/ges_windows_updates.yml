@@ -2,7 +2,7 @@
 - name: Apply Windows Updates
   hosts: all
   tasks:
-  - name: Apply Critical and Security Updates and Update Rollups
+  - name: Apply All Updates to Windows Systems
     win_updates:
       category_names: 
         - CriticalUpdates
