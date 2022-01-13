@@ -1,0 +1,10 @@
+---
+# Directory
+clamav_ubuntu: '/etc/clamav/'
+# File
+freshclam_ubuntu: freshclam_ubuntu.j2
+# Configuration
+ubuntu_user: 'User clamav' 
+ubuntu_packages: |
+  clamav, clamav-daemon
+...

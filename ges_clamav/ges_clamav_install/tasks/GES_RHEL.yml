@@ -1,0 +1,106 @@
+---
+- name: Install EPEL 7 from RPM (not available in package sources)
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+  when:
+    (ansible_facts['distribution'] == "RedHat") or
+    (ansible_facts['distribution'] == "CentOS") and
+    (ansible_facts['distribution_major_version'] == "7")
+- name: Install EPEL 8 from RPM (not available in package sources)
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+    state: present
+  when:
+    (ansible_facts['distribution'] == "RedHat") or
+    (ansible_facts['distribution'] == "CentOS") and
+    (ansible_facts['distribution_major_version'] == "8")
+- name: Install Oracle Linux 7 EPEL From Oracle Sources
+  yum:
+    name: oracle-epel-release-el7
+    state: present
+  when:
+    (ansible_facts['distribution'] == "OracleLinux") and  
+    (ansible_facts['distribution_major_version'] == "7")
+- name: Install Oracle Linux 8 EPEL From Oracle Sources
+  yum:
+    name: oracle-epel-release-el8
+    state: present
+  when:
+    (ansible_facts['distribution'] == "OracleLinux") and  
+    (ansible_facts['distribution_major_version'] == "8")
+- name: Install ClamAV Packages
+  yum:
+    name: '{{ rhel_packages }}'
+    state: present
+    enablerepo: 'epel,ol7_developer_EPEL,ol8_developer_EPEL'
+- name: Configure boolean to allow ClamAV scanning
+  seboolean:
+    name: antivirus_can_scan_system
+    state: yes
+    persistent: yes
+- name: Create the clam_scripts Directory
+  file:
+    path: '{{ clamscripts }}'
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+- name: Create GES_Weekly_Scan.sh 
+  file: 
+    path: '{{ clamscripts }}{{ weekly_scan }}'
+    state: touch
+    mode: 0755
+- name: Add required content to GES_Weekly_Scan.sh
+  blockinfile:
+    path: '{{ clamscripts }}{{ weekly_scan }}'
+    block: '{{ script_content }}'
+- name: Add crontab for weekly full / scan every Friday at 15:00
+  cron:
+    name: "GES Weekly ClamAV Scan"
+    minute: "00"
+    hour: "15"
+    weekday: "5"
+    job: "/clamscripts/GES_Weekly_Scan.sh"
+- name: Modify the freshclam.conf for definition checks every 6 hours and enabling /var/log/freshclam.log
+  template: 
+    src: '{{ freshclam_rhel }}'
+    dest: '{{ etc }}/freshclam.conf'
+    owner: root
+    group: root
+    mode: 0600
+- name: Create RHEL/CentOS /var/log/clamav/ directory - since it is not created by default
+  file: 
+    path: '{{ clamav_log_dir }}'
+    state: directory
+    owner: root
+    group: root
+    mode: 0777
+- name: Modify the scan.conf with the correct parameters
+  template:
+    src: '{{ scan_conf }}'
+    dest: '{{ clamav_rhel }}/scan.conf'
+    owner: root
+    group: root
+    mode: 0644
+- name: Remove the /etc/cron.d/clamav-update file (to mitigate the freshclam condition issue)
+  file:
+    path: /etc/cron.d/clamav-update
+    state: absent
+  when: (ansible_facts['distribution_major_version'] == "7")
+- name: Ensure the clamd@scan service is started 
+  systemd:
+    state: started
+    enabled: yes
+    name: clamd@scan
+- name: Restart clamonacc service
+  systemd:
+    state: restarted
+    enabled: yes
+    name: clamonacc
+- name: Restart the freshclam service
+  systemd:
+    state: restarted
+    enabled: yes
+    name: clamav-freshclam
+...

@@ -1,0 +1,11 @@
+---
+# Directory
+clamav_rhel: '/etc/clamd.d/'
+# File
+freshclam_rhel: freshclam_rhel.j2
+# Configuration
+rhel_user: 'User root'
+freshclam_rhel_log: 'UpdateLogFile /var/log/freshclam.log'
+rhel_packages: | 
+  clamav, clamd, clamav-update, clamav-data
+...
