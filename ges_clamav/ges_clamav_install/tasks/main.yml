@@ -9,7 +9,8 @@
 - import_tasks: GES_Ubuntu.yml
   tags: ubuntu_clamav
   when: 
-    (ansible_facts['distribution'] == "Ubuntu") and 
+    (ansible_facts['distribution'] == "Ubuntu") or 
+    (ansible_facts['distribution'] == "Pop!_OS") and
     (ansible_facts['distribution_version'] >= "18.04")
 - import_tasks: GES_RHEL.yml
   tags: rhel_clamav
