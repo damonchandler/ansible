@@ -1,0 +1,18 @@
+---
+- name: Install Chrony Package (if it does not already exist)
+  yum:
+    pkg: 
+      '{{ rhel_packages }}'
+    state: present
+- name: Move the chrony.conf file into place
+  template: 
+    src: 'chrony_conf.j2'
+    dest: '/etc/chrony.conf'
+    owner: root
+    group: root
+    mode: 0644
+- name: Restart the Chronyd service
+  systemd:
+    state: restarted
+    name: chronyd
+...

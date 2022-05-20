@@ -1,0 +1,15 @@
+---
+- name: Install FirewallD
+  yum:
+    name: firewalld
+    state: latest
+- name: Ensure FirewallD is Enabled with Default Deny All Incoming Except SSH; Allow All Outgoing
+  firewalld:
+    port: 22/tcp
+    permanent: yes
+    state: enabled
+- name: Ensure the FirewallD service is enabled
+  systemd:
+    state: started
+    name: firewalld
+...

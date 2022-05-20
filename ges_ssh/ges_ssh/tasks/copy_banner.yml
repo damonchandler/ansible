@@ -1,0 +1,9 @@
+---
+- name: Copy the Banner file to /etc
+  copy: 
+    src: '{{ ssh_banner_file }}'
+    dest: '{{ etc_directory }}/issue'
+    owner: root
+    group: root
+    mode: 0444
+...

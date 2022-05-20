@@ -1,0 +1,6 @@
+---
+- name: Restart the Secure Shell Service
+  systemd:
+    name: sshd
+    state: restarted
+...

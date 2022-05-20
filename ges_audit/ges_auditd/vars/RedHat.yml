@@ -1,0 +1,267 @@
+---
+# File Assumptions
+auditd_conf_file_centos: auditd_conf_centos.j2
+access_rules_file_centos: access_rules_rules_centos.j2
+audit_rules_file_centos: audit_rules_centos.j2
+audit_time_rules_file_centos: audit_time_rules_rules_centos.j2
+file_deletion_events_file_centos: file_deletion_events_rules_centos.j2
+immutable_file_centos: immutable_rules_centos.j2
+kernel_module_loading_file_centos: kernel_module_loading_rules_centos.j2
+mac_modification_file_centos: mac_modification_rules_centos.j2
+networkconfig_modification_file_centos: networkconfig_modification_rules_centos.j2
+privileged_commands_file_centos: privileged_commands_rules_centos.j2
+sysadmin_actions_file_centos: sysadmin_actions_rules_centos.j2
+unsuccessful_create_file_centos: unsuccessful-create_rules_centos.j2
+unsuccessful_delete_file_centos: unsuccessful-delete_rules_centos.j2
+unsuccessful_modification_file_centos: unsuccessful-modification_rules_centos.j2
+unsuccessful_perm_change_file_centos: unsuccessful-perm-change_rules_centos.j2
+usergroup_modification_rules_file_centos: usergroup_modification_rules_rules_centos.j2
+# 
+# Rules Configuration Assumptions - CentOS
+access_rules_centos: |
+  -a always,exit -F arch=b32 -S creat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S open -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S openat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S open_by_handle_at -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S truncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S creat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S open -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S openat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S open_by_handle_at -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S truncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b32 -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S creat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S open -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S openat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S open_by_handle_at -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S truncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S creat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S open -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S openat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S open_by_handle_at -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S truncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+  -a always,exit -F arch=b64 -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=access
+audit_rules_centos: | 
+  ## First rule - delete all
+  -D
+
+  ## Increase the buffers to survive stress events.
+  ## Make this bigger for busy systems
+  -b 8192
+
+  ## Set failure mode to syslog
+  -f 1
+audit_time_rules_centos: |
+  -a always,exit -F arch=b32 -S adjtimex -F key=audit_time_rules
+  -a always,exit -F arch=b64 -S adjtimex -F key=audit_time_rules
+  -a always,exit -F arch=b32 -S clock_settime -F a0=0x0 -F key=audit_time_rules
+  -a always,exit -F arch=b64 -S clock_settime -F a0=0x0 -F key=audit_time_rules
+  -a always,exit -F arch=b32 -S settimeofday -F a0=0x0 -F key=audit_time_rules
+  -a always,exit -F arch=b64 -S settimeofday -F a0=0x0 -F key=audit_time_rules
+  -a always,exit -F arch=b32 -S stime -F key=audit_time_rules
+  -w /etc/localtime -p wa -F key=audit_time_rules
+file_deletion_events_centos: |
+  -a always,exit -F arch=b64 -S rmdir -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b64 -S unlink -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b64 -S unlinkat -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b64 -S rename -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b64 -S renameat -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b32 -S rmdir -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b32 -S unlink -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b32 -S unlinkat -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b32 -S rename -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+  -a always,exit -F arch=b32 -S renameat -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
+immutable_centos: '-e 2'
+kernel_module_loading_centos: | 
+  -w /usr/bin/kmod -p x -k kernel_module_loading
+  -a always,exit -F arch=b32 -S create_module -F key=kernel_module_loading
+  -a always,exit -F arch=b64 -S create_module -F key=kernel_module_loading
+  -a always,exit -F arch=b32 -S init_module -F key=kernel_module_loading
+  -a always,exit -F arch=b64 -S init_module -F key=kernel_module_loading
+  -a always,exit -F arch=b32 -S delete_module -F key=kernel_module_loading
+  -a always,exit -F arch=b64 -S delete_module -F key=kernel_module_loading
+  -a always,exit -F arch=b32 -S finit_module -F key=kernel_module_loading
+  -a always,exit -F arch=b64 -S finit_module -F key=kernel_module_loading
+mac_modification_centos: '-w /etc/selinux -p wa -F key=mac_modification'
+networkconfig_modification_centos: | 
+  -a always,exit -F arch=b32 -S sethostname -F key=networkconfig_modification
+  -a always,exit -F arch=b64 -S sethostname -F key=networkconfig_modification
+  -a always,exit -F arch=b32 -S setdomainname -F key=networkconfig_modification
+  -a always,exit -F arch=b64 -S setdomainname -F key=networkconfig_modification
+  -w /etc/issue -p wa -F key=networkconfig_modification
+  -w /etc/issue.net -p wa -F key=networkconfig_modification
+  -w /etc/hosts -p wa -F key=networkconfig_modification
+  -w /etc/sysconfig/network -p wa -F key=networkconfig_modification 
+privileged_commands_centos: |
+  -a always,exit -F path=/usr/bin/fusermount -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/newgrp -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/mount -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/su -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/umount -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/write -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/pkexec -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/passwd -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/crontab -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/chfn -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/chsh -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/at -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/sudo -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/bin/locate -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/grub2-set-bootflag -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/unix_chkpwd -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/lockdev -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/userhelper -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/mount.nfs -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/postdrop -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/sbin/postqueue -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/lib/polkit-1/polkit-agent-helper-1 -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/libexec/dbus-1/dbus-daemon-launch-helper -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/libexec/utempter/utempter -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/libexec/cockpit-session -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands 
+  -a always,exit -F path=/usr/libexec/qemu-bridge-helper -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+  -a always,exit -F path=/usr/libexec/Xorg.wrap -F perm=x -F auid>=1000 -F auid!=4294967295 -F key=privileged_commands
+sysadmin_actions_centos: | 
+  -w /etc/sudoers -p wa -F key=sysadmin_actions
+  -w /etc/sudoers.d -p wa -F key=sysadmin_actions
+unsuccessful_create_centos: |
+  -a always,exit -F arch=b32 -S open -F a2&0100 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b32 -S openat -F a2&0100 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b32 -S open_by_handle_at -F a2&0100 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b32 -S open -F a2&0100 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b32 -S openat -F a2&0100 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b32 -S open_by_handle_at -F a2&0100 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b64 -S open -F a2&0100 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b64 -S openat -F a2&0100 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b64 -S open_by_handle_at -F a2&0100 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b64 -S open -F a2&0100 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b64 -S openat -F a2&0100 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+  -a always,exit -F arch=b64 -S open_by_handle_at -F a2&0100 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-create
+unsuccessful_delete_centos: | 
+  -a always,exit -F arch=b32 -S rename -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S renameat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S unlink -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S unlinkat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S rename -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S renameat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S unlink -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b32 -S unlinkat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S rename -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S renameat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S unlink -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S unlinkat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S rename -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S renameat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S unlink -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+  -a always,exit -F arch=b64 -S unlinkat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-delete
+unsuccessful_modification_centos: | 
+  -a always,exit -F arch=b32 -S open -F a2&01003 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b32 -S openat -F a2&01003 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b32 -S open_by_handle_at -F a2&01003 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b32 -S open -F a2&01003 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b32 -S openat -F a2&01003 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b32 -S open_by_handle_at -F a2&01003 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b64 -S open -F a2&01003 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b64 -S openat -F a2&01003 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b64 -S open_by_handle_at -F a2&01003 -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b64 -S open -F a2&01003 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b64 -S openat -F a2&01003 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+  -a always,exit -F arch=b64 -S open_by_handle_at -F a2&01003 -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-modification
+unsuccessful_perm_change_centos: | 
+  -a always,exit -F arch=b32 -S chmod -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S chown -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchmod -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchmodat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchown -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchownat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fremovexattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fsetxattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S lchown -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S lremovexattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S lsetxattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S removexattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S setxattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S chmod -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S chown -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchmod -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchmodat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchown -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fchownat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fremovexattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S fsetxattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S lchown -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S lremovexattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S lsetxattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S removexattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b32 -S setxattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S chmod -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S chown -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchmod -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchmodat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchown -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchownat -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fremovexattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fsetxattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S lchown -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S lremovexattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S lsetxattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S removexattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S setxattr -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S chmod -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S chown -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchmod -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchmodat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchown -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fchownat -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fremovexattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S fsetxattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S lchown -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S lremovexattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S lsetxattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S removexattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+  -a always,exit -F arch=b64 -S setxattr -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -F key=unsuccessful-perm-change
+usergroup_modification_rules_centos: |
+  -w /etc/group -p wa -F key=usergroup_modification_rules
+  -w /etc/shadow -p wa -F key=usergroup_modification_rules
+  -w /etc/passwd -p wa -F key=usergroup_modification_rules
+  -w /etc/gshadow -p wa -F key=usergroup_modification_rules
+  -w /etc/security/opasswd -p wa -F key=usergroup_modification_rules
+#
+# Conf Configuration Assumptions - CentOS
+local_events_centos: 'local_events = yes'
+write_logs_centos: 'write_logs = yes'
+log_file_centos: 'log_file = /var/log/audit/audit.log'
+log_group_centos: 'log_group = root'
+log_format_centos: 'log_format = ENRICHED'
+flush_centos: 'flush = INCREMENTAL_ASYNC'
+freq_centos: 'freq = 50'
+max_log_file_centos: 'max_log_file = 8'
+num_logs_centos: 'num_logs = 5'
+priority_boost_centos: 'priority_boost = 4'
+name_format_centos: 'name_format = NONE'
+log_action_centos: 'max_log_file_action = ROTATE'
+space_centos: 'space_left = 75'
+space_action_centos: 'space_left_action = SYSLOG'
+verify_email_centos: 'verify_email = yes'
+mail_action_centos: 'action_mail_acct = root'
+admin_space_centos: 'admin_space_left = 50'
+admin_left_action_centos: 'admin_space_left_action = SUSPEND'
+disk_full_centos: 'disk_full_action = SUSPEND'
+disk_error_centos: 'disk_error_action = SUSPEND'
+libwrap_centos: 'use_libwrap = yes'
+tcp_listen_centos: 'tcp_listen_queue = 5'
+tcp_max_centos: 'tcp_max_per_addr = 1'
+tcp_client_max_centos: 'tcp_client_max_idle = 0'
+transport_centos: 'transport = TCP'
+krb5_centos: 'krb5_principal = auditd'
+dist_network_centos: 'distribute_network = no'
+qdepth_centos: 'q_depth = 400'
+overflow_centos: 'overflow_action = SYSLOG'
+restarts_centos: 'max_restarts = 10'
+plugin_centos: 'plugin_dir = /etc/audit/plugins.d'
+#
+...

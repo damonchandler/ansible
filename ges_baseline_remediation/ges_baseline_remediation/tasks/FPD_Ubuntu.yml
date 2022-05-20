@@ -1,0 +1,153 @@
+---
+- name: Provision the Remediation Tasks - Services and File Types Disabled or Disallowed from Mounting 
+  block:
+    - name: NASA ASCS 20061 - Disable cramfs mounts
+      lineinfile:
+        path: /etc/modprobe.d/cramfs.conf
+        line: '{{ cramfs_conf }}'
+        create: yes
+    - name: NASA ASCS 20062 - Disable DCCP support
+      lineinfile:
+        path: /etc/modprobe.d/dccp.conf
+        line: '{{ dccp_conf }}'
+        create: yes
+    - name: NASA ASCS 20063 - Disable freevxfs mounts
+      lineinfile:
+        path: /etc/modprobe.d/freevxfs.conf
+        line: '{{ freevxfs_conf }}'
+        create: yes
+    - name: NASA ASCS 20064 - Disable hfs mounts
+      lineinfile:
+        path: /etc/modprobe.d/hfs.conf
+        line: '{{ hfs_conf }}'
+        create: yes
+    - name: NASA ASCS 20065 - Disable hfsplus mounts
+      lineinfile:
+        path: /etc/modprobe.d/hfsplus.conf
+        line: '{{ hfsplus_conf }}'
+        create: yes
+    - name: NASA ASCS 20066 - Disable jffs2 mounts
+      lineinfile:
+        path: /etc/modprobe.d/jffs2.conf
+        line: '{{ jffs2_conf }}'
+        create: yes
+    - name: NASA ASCS 20067 - Disable SCTP support
+      lineinfile:
+        path: /etc/modprobe.d/sctp.conf
+        line: '{{ sctp_conf }}'
+        create: yes
+    - name: NASA ASCS 20068 - Disable squashfs mounts
+      lineinfile:
+        path: /etc/modprobe.d/squashfs.conf
+        line: '{{ squashfs_conf }}'
+        create: yes
+    - name: NASA ASCS 20069 - Disable udf mounts
+      lineinfile:
+        path: /etc/modprobe.d/udf.conf
+        line: '{{ udf_conf }}'
+        create: yes
+- name: Modify Permissions on Shadow Files
+  block:
+    - name: NASA ASCS 20053 - Verify Permissions on the gshadow file
+      file:
+        path: /etc/gshadow
+        owner: root
+        group: shadow
+        mode: '0000'
+    - name: NASA ASCS 20055 - Verify Permissions on the shadow file
+      file:
+        path: /etc/shadow
+        owner: root
+        group: shadow
+        mode: '0000'
+- name: NASA ASCS 20012 - Direct Root Login Mitigations
+  block:
+    - name: Create the /etc/securetty file
+      file: 
+        path: /etc/securetty
+        state: touch 
+        mode: '0644'
+    - name: Add the pam_securetty.so to /etc/pam.d/login
+      pamd:
+        name: login
+        type: auth
+        control: optional
+        module_path: pam_faildelay.so
+        new_type: auth
+        new_control: "[user_unknown=ignore success=ok ignore=ignore default=bad]"
+        new_module_path: pam_securetty.so
+        state: before
+- name: NASA ASCS 20085 - Remove telnet Clients
+  apt:
+    name: telnet
+    state: absent
+- name: Disable Kernel Parameters
+  block:
+    - name: NASA ASCS 20112 - Disable Kernel Param Accepting Secure Redirects for All Interfaces
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^secure_redirects=0'
+        insertafter: EOF
+        line: '{{ secure_redirects }}'
+    - name: NASA ASCS 20114 - Disable Kernel Param Accepting Secure Redirects By Default
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^default.secure_redirects=0 '
+        insertafter: EOF
+        line: '{{ default_secure_redirects }}'
+    - name: NASA ASCS 20192 - Disable Kernel Param Sending ICMP Redirects for All Interfaces
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^send_redirects=0'
+        insertafter: EOF
+        line: '{{ send_redirects }}'
+    - name: NASA ASCS 20193 - Disable Kernel Param Sending Accepting ICMP Redirects By Default
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^default.accept_redirects=0'
+        insertafter: EOF
+        line: '{{ default_accept_redirects }}'
+    - name: NASA ASCS 20194 - Disable Kernel Param Accepting Source-Routed Packets By Default 
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^default.accept_source_route=0'
+        insertafter: EOF
+        line: '{{ default_accept_source_route }}'
+    - name: NASA ASCS 20195 - Disable Kernel Param Sending ICMP Redirects by Default
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^default.send_redirects=0'
+        insertafter: EOF
+        line: '{{ default_send_redirects }}'
+    - name: NASA ASCS 20268 - Disable Accepting IPv6 Redirects By Default 
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^ipv6.conf.all.accept_redirects=0'
+        insertafter: EOF
+        line: '{{ ipv6_conf_all_accept_redirects }}'
+    - name: NASA ASCS 20269 - Disable Accepting IPv6 Router Advertisements 
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^ipv6.conf.default.accept_ra=0 '
+        insertafter: EOF
+        line: '{{ ipv6_conf_default_accept_ra }}'
+    - name: NASA ASCS 20270 - Disable Accepting IPv6 Redirects By Default 
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^ipv6.conf.default.accept_redirects=0'
+        insertafter: EOF
+        line: '{{ ipv6_conf_default_accept_redirects }}'
+    - name: Reload the sysctl parameters
+      command: sysctl --system
+- name: NASA ASCS 20364 - Disable Ctrl-Alt-Del Reboot Activation
+  systemd:
+    name: ctrl-alt-del.target
+    masked: yes
+- name: NASA ASCS 20365 - Disable Ctrl-Alt-Del Burst Action
+  lineinfile:
+    path: /etc/systemd/system.conf
+    regexp: '^CtrlAltDelBurstAction'
+    insertafter: EOF
+    line: '{{ ctrlaltdel_burst }}'
+...
+      

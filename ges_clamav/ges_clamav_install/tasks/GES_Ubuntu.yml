@@ -22,7 +22,7 @@
     block: '{{ script_content }}'
 - name: Add crontab for weekly full / scan every Friday at 15:00
   cron:
-    name: "FPD Weekly ClamAV Scan"
+    name: "GES Weekly ClamAV Scan"
     minute: "00"
     hour: "15"
     weekday: "5"

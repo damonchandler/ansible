@@ -1,0 +1,6 @@
+---
+# vars file for RHEL/CentOS
+time_server_ubuntu: 'server time.nasa.gov'
+ubuntu_packages: |
+  ntp, ntpdate
+...

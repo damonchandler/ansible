@@ -1,0 +1,5 @@
+---
+# vars file for RHEL/CentOS
+time_server_rhel: 'server time.nasa.gov iburst prefer'
+rhel_packages: 'chrony'
+...

@@ -1,0 +1,22 @@
+---
+# vars file for fpd_baseline_remediation
+cramfs_conf: 'install cramfs /bin/true '
+dccp_conf: 'install dccp /bin/true '
+freevxfs_conf: 'install freevxfs /bin/true '
+hfs_conf: 'install hfs /bin/true '
+hfsplus_conf: 'install hfsplus /bin/true '
+jffs2_conf: 'install jffs2 /bin/true '
+sctp_conf: 'install sctp /bin/true '
+squashfs_conf: 'install squashfs /bin/true '
+udf_conf: 'install udf /bin/true '
+secure_redirects: 'net.ipv4.conf.all.secure_redirects = 0'
+send_redirects: 'net.ipv4.conf.all.send_redirects = 0'
+default_secure_redirects: 'net.ipv4.conf.default.secure_redirects = 0'
+default_accept_redirects: 'net.ipv4.conf.default.accept_redirects = 0'
+default_accept_source_route: 'net.ipv4.conf.default.accept_source_route = 0'
+default_send_redirects: 'net.ipv4.conf.default.send_redirects = 0'
+ipv6_conf_all_accept_redirects: 'net.ipv6.conf.all.accept_redirects = 0'
+ipv6_conf_default_accept_ra: 'net.ipv6.conf.default.accept_ra = 0'
+ipv6_conf_default_accept_redirects: 'net.ipv6.conf.default.accept_redirects = 0'
+ctrlaltdel_burst: 'CtrlAltDelBurstAction=none'
+...

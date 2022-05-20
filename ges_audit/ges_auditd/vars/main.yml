@@ -1,0 +1,7 @@
+---
+# vars file for fpd_auditd
+#
+# Directory Assumptions
+auditd_directory: '/etc/audit'
+rules_directory: '/etc/audit/rules.d'
+...

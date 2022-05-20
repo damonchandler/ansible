@@ -1,0 +1,17 @@
+---
+- name: Install UFW
+  apt:
+    name: ufw
+    update_cache: yes
+- name: Ensure UFW is Enabled with Default Deny All Incoming Except SSH; Allow All Outgoing
+  ufw:
+    state: enabled
+    rule: allow
+    name: OpenSSH
+- name: Ensure the UFW service is enabled
+  systemd:
+    state: started
+    name: ufw
+...
+    
+

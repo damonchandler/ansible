@@ -1,0 +1,25 @@
+---
+- name: Install NTP Packages
+  apt:
+    pkg: 
+      '{{ ubuntu_packages }}'
+    state: present
+    update_cache: yes
+- name: Move the ntp.conf file into place
+  template: 
+    src: 'ntp_conf.j2'
+    dest: '/etc/ntp.conf'
+    owner: root
+    group: root
+    mode: 0644
+- name: Stop the NTP service
+  systemd:
+    state: stopped
+    name: ntp
+- name: Perform an ntpdate sync against time.nasa.gov
+  command: ntpdate -q time.nasa.gov
+- name: Start the NTP service
+  systemd:
+    state: started
+    name: ntp
+...
