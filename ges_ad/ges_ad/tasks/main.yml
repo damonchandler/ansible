@@ -4,6 +4,7 @@
   include_vars: '{{ item }}'
   with_first_found: 
     - '{{ ansible_os_family }}.yml'
+    - '{{ ansible_distribution }}.yml'
     - 'main.yml'
   tags: vars
 - import_tasks: GES_AD_RHEL7.yml
