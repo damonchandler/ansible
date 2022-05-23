@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
-  description: your role description
-  company: your company (optional)
+  author: Damon Chandler
+  description: Configuration for FirewallD (RHEL-based >=7) and UFW (Ubuntu >= 18.04) 
+  company: Genesis Engineering - Information Technology
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

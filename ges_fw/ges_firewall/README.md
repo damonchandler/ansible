@@ -1,7 +1,7 @@
 Role - FPD Firewall (Uncomplicated Firewall and FirewallD) Configuration Against Linux Information Systems
 =========
 
-This role configures the application firewall (Uncomplicated Firewall/UFW for Ubuntu >= 18.04; FirewallD for RHEL-based distributions >= 7) on FPD informations systems according to the following:
+This role configures the application firewall (Uncomplicated Firewall/UFW for Ubuntu >= 18.04; FirewallD for RHEL-based distributions >= 7) on GES informations systems according to the following:
 
 * Ensures inbound access is restricted to SSH (22/tcp).  Applies this rule against the default FirewallD profile.
 * Ensures all outbound access is allowed.
@@ -49,4 +49,4 @@ Author Information
 
 Damon Chandler
     
-damon.i.chandler@nasa.gov
+dchandler@genesisesi.com

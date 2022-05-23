@@ -1,4 +1,4 @@
-Role - FPD Secure Shell (SSH) Configuration
+Role - GES Secure Shell (SSH) Configuration
 =========
 
 This role configures SSH against Linux information systems.    
@@ -8,7 +8,7 @@ Applicability: RHEL-based distributions >= 7 and Ubuntu >= 16.04
 It performs the following:
  
 * Backs up the current /etc/ssh/sshd_config file (for legacy reference purposes).
-* Provides the NASA IT Consent Banner file to /etc/issue (NASA-ASCS-20036: Modify the System Login Banner).
+* Provides the Genesis IT Consent Banner file to /etc/issue.
 * Configures sshd_config parameters in the vars/main.yml and applies them to the applicable Jinja (.j2) templates.  Copies templates to the target as the new sshd_config file.
 * Restarts the secure shell service.
 
@@ -47,4 +47,4 @@ Author Information
 
 Damon Chandler
     
-damon.i.chandler@nasa.gov
+dchandler@genesisesi.com

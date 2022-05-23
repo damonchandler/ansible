@@ -1,5 +1,5 @@
 ---
-# vars file for fpd_auditd
+# vars file for ges_auditd
 #
 # Directory Assumptions
 auditd_directory: '/etc/audit'

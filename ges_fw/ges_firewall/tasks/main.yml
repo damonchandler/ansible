@@ -1,5 +1,5 @@
 ---
-# tasks file for fpd_firewall
+# tasks file for ges_firewall
 - import_tasks: configure_firewalld.yml
   tags: rhel_fw
   when:  

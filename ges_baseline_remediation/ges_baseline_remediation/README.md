@@ -1,59 +1,59 @@
 Role - Baseline Remediation Configuration
 =========
 
-This role configures additional ASCS parameters against RHEL-based distributions >= 7 and Ubuntu >= 18.04.  Configures the following:
+This role configures additional CIS parameters against RHEL-based distributions >= 7 and Ubuntu >= 18.04.  Configures the following:
 
 *Ubuntu* 
 
-    NASA-ASCS-20053: Verify Permissions on gshadow File 
-    NASA-ASCS-20055: Verify Permissions on shadow File 
-    NASA-ASCS-20061: Disable Mounting of cramfs 
-    NASA-ASCS-20062: Disable DCCP Support 
-    NASA-ASCS-20063: Disable Mounting of freevxfs 
-    NASA-ASCS-20064: Disable Mounting of hfs 
-    NASA-ASCS-20065: Disable Mounting of hfsplus 
-    NASA-ASCS-20066: Disable Mounting of jffs2 
-    NASA-ASCS-20067: Disable SCTP Support 
-    NASA-ASCS-20068: Disable Mounting of squashfs 
-    NASA-ASCS-20069: Disable Mounting of udf 
-    NASA-ASCS-20012: Disallow Direct root Logins  
-    NASA-ASCS-20085: Remove telnet Clients 
-    NASA-ASCS-20112: Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces 
-    NASA-ASCS-20114: Disable Kernel Parameter for Accepting Secure Redirects By Default 
-    NASA-ASCS-20192: Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces 
-    NASA-ASCS-20193: Disable Kernel Parameter for Accepting ICMP Redirects By Default 
-    NASA-ASCS-20194: Disable Kernel Parameter for Accepting Source-Routed Packets By Default 
-    NASA-ASCS-20195: Disable Kernel Parameter for Sending ICMP Redirects by Default 
-    NASA-ASCS-20268: Disable Accepting IPv6 Redirects By Default 
-    NASA-ASCS-20269: Disable Accepting IPv6 Router Advertisements 
-    NASA-ASCS-20270: Disable Accepting IPv6 Redirects By Default
-    NASA-ASCS-20364: Disable Ctrl-Alt-Del Reboot Activation
-    NASA-ASCS-20365: Disable Ctrl-Alt-Del Burst Action
+    Verify Permissions on gshadow File 
+    Verify Permissions on shadow File 
+    Disable Mounting of cramfs 
+    Disable DCCP Support 
+    Disable Mounting of freevxfs 
+    Disable Mounting of hfs 
+    Disable Mounting of hfsplus 
+    Disable Mounting of jffs2 
+    Disable SCTP Support 
+    Disable Mounting of squashfs 
+    Disable Mounting of udf 
+    Disallow Direct root Logins  
+    Remove telnet Clients 
+    Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces 
+    Disable Kernel Parameter for Accepting Secure Redirects By Default 
+    Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces 
+    Disable Kernel Parameter for Accepting ICMP Redirects By Default 
+    Disable Kernel Parameter for Accepting Source-Routed Packets By Default 
+    Disable Kernel Parameter for Sending ICMP Redirects by Default 
+    Disable Accepting IPv6 Redirects By Default 
+    Disable Accepting IPv6 Router Advertisements 
+    Disable Accepting IPv6 Redirects By Default
+    Disable Ctrl-Alt-Del Reboot Activation
+    Disable Ctrl-Alt-Del Burst Action
 
 *RHEL/CentOS/OLE/Scientific Linux*
 
-    NASA-ASCS-20061: Disable Mounting of cramfs 
-    NASA-ASCS-20062: Disable DCCP Support 
-    NASA-ASCS-20063: Disable Mounting of freevxfs 
-    NASA-ASCS-20064: Disable Mounting of hfs 
-    NASA-ASCS-20065: Disable Mounting of hfsplus 
-    NASA-ASCS-20066: Disable Mounting of jffs2 
-    NASA-ASCS-20067: Disable SCTP Support 
-    NASA-ASCS-20068: Disable Mounting of squashfs 
-    NASA-ASCS-20069: Disable Mounting of udf 
-    NASA-ASCS-20012: Disallow Direct root Logins 
-    NASA-ASCS-20085: Remove telnet Clients 
-    NASA-ASCS-20112: Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces 
-    NASA-ASCS-20114: Disable Kernel Parameter for Accepting Secure Redirects By Default 
-    NASA-ASCS-20192: Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces 
-    NASA-ASCS-20193: Disable Kernel Parameter for Accepting ICMP Redirects By Default 
-    NASA-ASCS-20194: Disable Kernel Parameter for Accepting Source-Routed Packets By Default 
-    NASA-ASCS-20195: Disable Kernel Parameter for Sending ICMP Redirects by Default 
-    NASA-ASCS-20268: Disable Accepting IPv6 Redirects By Default 
-    NASA-ASCS-20269: Disable Accepting IPv6 Router Advertisements 
-    NASA-ASCS-20270: Disable Accepting IPv6 Redirects By Default 
-    NASA-ASCS-20364: Disable Ctrl-Alt-Del Reboot Activation
-    NASA-ASCS-20365: Disable Ctrl-Alt-Del Burst Action
+    Disable Mounting of cramfs 
+    Disable DCCP Support 
+    Disable Mounting of freevxfs 
+    Disable Mounting of hfs 
+    Disable Mounting of hfsplus 
+    Disable Mounting of jffs2 
+    Disable SCTP Support 
+    Disable Mounting of squashfs 
+    Disable Mounting of udf 
+    Disallow Direct root Logins 
+    Remove telnet Clients 
+    Disable Kernel Parameter for Accepting Secure Redirects for All Interfaces 
+    Disable Kernel Parameter for Accepting Secure Redirects By Default 
+    Disable Kernel Parameter for Sending ICMP Redirects for All Interfaces 
+    Disable Kernel Parameter for Accepting ICMP Redirects By Default 
+    Disable Kernel Parameter for Accepting Source-Routed Packets By Default 
+    Disable Kernel Parameter for Sending ICMP Redirects by Default 
+    Disable Accepting IPv6 Redirects By Default 
+    Disable Accepting IPv6 Router Advertisements 
+    Disable Accepting IPv6 Redirects By Default 
+    Disable Ctrl-Alt-Del Reboot Activation
+    Disable Ctrl-Alt-Del Burst Action
 
 Requirements
 ------------
@@ -102,4 +102,4 @@ Author Information
 
 Damon Chandler
     
-damon.i.chandler@nasa.gov
+dchandler@genesisesi.com

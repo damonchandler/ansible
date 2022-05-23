@@ -1,0 +1,10 @@
+---
+- name: Auto-remove packages that are no longer required
+  hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+  - name: Update apt cache but run 'apt autoremove -y' against the target
+    apt:
+      autoremove: yes
+...

@@ -1,15 +1,15 @@
-Role - FPD Network Time
+Role - GES Network Time
 =========
 
-This role configures the Chrony (RHEL-based distributions) or NTP (Ubuntu) services to sync time from time.nasa.gov.
+This role configures the Chrony (RHEL-based distributions) or NTP (Ubuntu) services to sync time from genesis-dc1.genesis.local.
 
 In Ubuntu:
 
 * The ntp and ntpdate packages are installed.
 * The ntp.conf file is templatized (Jinja) and copied in place to the /etc/ directory.
 * The ntp service is stopped.
-* Time sync is forced using the ntpdate command: ntpdate -q time.nasa.gov.
-* The ntp service is atarted.
+* Time sync is forced using the ntpdate command: ntpdate -q genesis-dc1.genesis.local.
+* The ntp service is started.
 
 In RHEL-based distributions:
 
@@ -54,4 +54,4 @@ Author Information
 
 Damon Chandler
     
-damon.i.chandler@nasa.gov
+dchandler@genesisesi.com

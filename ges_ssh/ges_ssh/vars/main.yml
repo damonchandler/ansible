@@ -7,8 +7,8 @@ ssh_directory: '/etc/ssh'
 #
 # File Assumptions
 ssh_banner_file: etc_issue
-sshd_config_ubuntu: sshd_config_ubu.j2
-sshd_config_centos: sshd_config_centos.j2
+sshd_config_ubuntu: sshd_config_ubuntu.j2
+sshd_config_centos: sshd_config_rhel.j2
 #
 # Configuration Assumptions
 host_based_auth: 'HostbasedAuthentication no'

@@ -1,5 +1,5 @@
 ---
-# tasks file for fpd_ssh
+# tasks file for ges_ssh
 - import_tasks: backup_ssh.yml
 - import_tasks: copy_banner.yml
 - import_tasks: configure_sshd.yml

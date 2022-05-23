@@ -1,6 +1,6 @@
 ---
 # vars file for RHEL/CentOS
-time_server_ubuntu: 'server time.nasa.gov'
+time_server_ubuntu: 'genesis-dc1.genesis.local'
 ubuntu_packages: |
   ntp, ntpdate
 ...

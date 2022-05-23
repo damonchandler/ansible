@@ -1,13 +1,6 @@
 ---
 - name: Create all NASA-specific directories
   block:
-    - name: Make the gdm.d directory in Ubuntu as it does not exist by default
-      file:
-        path: /etc/dconf/profile/gdm.d
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
     - name:  Create the /etc/dconf/db/gdm.d/locks directory
       file:
         path: /etc/dconf/db/gdm.d/locks
@@ -29,12 +22,12 @@
         owner: root
         group: root
         mode: '0755'
-- name: Add the NASA-specific files
+- name: Add the GES-specific files
   block:
-    - name: Configure the /etc/gdm3/custom.conf file
+    - name: Configure the /etc/gdm/custom.conf file
       copy:
         src: 'custom_conf' 
-        dest: /etc/gdm3/custom.conf
+        dest: /etc/gdm/custom.conf
         owner: root
         group: root
         mode: '0644'
@@ -52,31 +45,31 @@
         owner: root
         group: root
         mode: '0644'
-    - name: Create the /etc/dconf/db/gdm.d/00-nasa file
+    - name: Create the /etc/dconf/db/gdm.d/00-ges file
       copy:
-        src: 'gdmd_00nasa'
-        dest: /etc/dconf/db/gdm.d/00-nasa
+        src: 'gdmd_00ges'
+        dest: /etc/dconf/db/gdm.d/00-ges
         owner: root
         group: root
         mode: '0644'
-    - name: Create the /etc/dconf/db/gdm.d/locks/00-nasa file
+    - name: Create the /etc/dconf/db/gdm.d/locks/00-ges file
       copy:
-        src: 'gdmd_locks_00nasa'
-        dest: /etc/dconf/db/gdm.d/locks/00-nasa
+        src: 'gdmd_locks_00ges'
+        dest: /etc/dconf/db/gdm.d/locks/00-ges
         owner: root
         group: root
         mode: '0644'
-    - name: Create the /etc/dconf/db/local.d/00-nasa file
+    - name: Create the /etc/dconf/db/local.d/00-ges file
       copy:
-        src: 'locald_00nasa'
-        dest: /etc/dconf/db/local.d/00-nasa
+        src: 'locald_00ges'
+        dest: /etc/dconf/db/local.d/00-ges
         owner: root
         group: root
         mode: '0644'
-    - name: Create the /etc/dconf/db/local.d/locks/00-nasa file
+    - name: Create the /etc/dconf/db/local.d/locks/00-ges file
       copy:
-        src: 'locald_locks_00nasa'
-        dest: /etc/dconf/db/local.d/locks/00-nasa
+        src: 'locald_locks_00ges'
+        dest: /etc/dconf/db/local.d/locks/00-ges
         owner: root
         group: root
         mode: '0644'

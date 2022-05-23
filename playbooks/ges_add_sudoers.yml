@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: Create the /etc/sudoers.d/genesis file
+      lineinfile: 
+        path: /etc/sudoers.d/genesis
+        line: | 
+          dchandler    ALL=(ALL)     NOPASSWD: ALL
+        create: yes
+...

@@ -1,5 +1,5 @@
 ---
-# tasks file for fpd_network_time
+# tasks file for ges_network_time
 - name: Gather OS Specific Vars
   include_vars: '{{ item }}'
   with_first_found: 
@@ -7,12 +7,12 @@
     - '{{ ansible_os_family }}.yml'
     - 'main.yml'
   tags: vars
-- import_tasks: FPD_Ubuntu.yml
+- import_tasks: GES_Ubuntu.yml
   tags: ubuntu_time
   when: 
     (ansible_facts['distribution'] == "Ubuntu") and 
     (ansible_facts['distribution_version'] >= "18.04")
-- import_tasks: FPD_RHEL.yml
+- import_tasks: GES_RHEL.yml
   tags: rhel_time
   when:
     (ansible_facts['os_family'] == "RedHat") and

@@ -1,7 +1,7 @@
 Role - Auditd Configuration for Linux Systems
 =========
 
-This role configures auditd (RHEL-based distributions >= 7 and Ubuntu >= 18.04) based on CSET guidelines. It performs the following:
+This role configures auditd (RHEL-based distributions >= 7 and Ubuntu >= 18.04) based on CIS guidelines. It performs the following:
 
 * Assumes use of augenrules for aggregation of the /etc/audit/audit.rules against target individual *.rules files in /etc/audit/rules.d/.  Defines the following:
     * access_rules.rules
@@ -69,4 +69,4 @@ Author Information
 
 Damon Chandler
     
-damon.i.chandler@nasa.gov
+dchandler@genesisesi.com

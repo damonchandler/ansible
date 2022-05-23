@@ -1,7 +1,7 @@
 galaxy_info:
   author: Damon Chandler
-  description: Configure SSH based on NASA (CSET) ODV
-  company: NASA - Flight Projects Directorate
+  description: Configure SSH based on GES Organizationally-defined values
+  company: Genesis Engineering - Information Technology
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

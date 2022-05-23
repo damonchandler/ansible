@@ -17,7 +17,7 @@
     state: stopped
     name: ntp
 - name: Perform an ntpdate sync against time.nasa.gov
-  command: ntpdate -q time.nasa.gov
+  command: ntpdate -q genesis-dc1.genesis.local
 - name: Start the NTP service
   systemd:
     state: started

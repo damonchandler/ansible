@@ -1,5 +1,5 @@
 ---
-# vars file for fpd_baseline_remediation
+# vars file for ges_baseline_remediation
 cramfs_conf: 'install cramfs /bin/true '
 dccp_conf: 'install dccp /bin/true '
 freevxfs_conf: 'install freevxfs /bin/true '

@@ -1,17 +1,17 @@
 ---
-# tasks file for fpd_baseline_remediation
+# tasks file for ges_baseline_remediation
 - name: Gather OS Specific Vars
   include_vars: "{{ item }}"
   with_first_found: 
 #    - '{{ ansible_distribution }}.yml'
 #    - 'RHEL.yml'
     - 'main.yml'
-- import_tasks: FPD_RHEL.yml
+- import_tasks: GES_RHEL.yml
   tags: rhel_remediation
   when: 
     (ansible_facts['os_family'] == "RedHat") and  
     (ansible_facts['distribution_major_version'] >= "7")
-- import_tasks: FPD_Ubuntu.yml
+- import_tasks: GES_Ubuntu.yml
   tags: ubuntu_remediation
   when: 
     (ansible_facts['distribution'] == "Ubuntu") and 

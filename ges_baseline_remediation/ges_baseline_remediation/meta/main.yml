@@ -1,7 +1,7 @@
 galaxy_info:
   author: Damon Chandler
-  description: Baseline Remediation of Various ASCS Settings Against RHEL/CentOS (>=7) and Ubuntu (>=18.04) Systems 
-  company: FPD IT Security
+  description: Baseline Remediation of Various ASCS Settings Against RHEL-based (>=7) and Ubuntu (>=18.04) Systems 
+  company: Genesis Engineering - Information Technology
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

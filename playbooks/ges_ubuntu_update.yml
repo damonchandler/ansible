@@ -1,0 +1,11 @@
+---
+- name: Update all packages to the latest version in Ubuntu
+  hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+  - name: Update apt cache and run 'apt dist-upgrade -y' against the target
+    apt:
+      update_cache: yes
+      upgrade: dist
+...

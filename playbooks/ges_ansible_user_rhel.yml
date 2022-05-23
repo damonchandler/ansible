@@ -1,0 +1,33 @@
+---
+- name: Create the gesansible User/Group on RHEL/CentOS Systems
+  hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+  - name: Create the 'gesansible' Group
+    group:
+      name: gesansible
+      state: present
+  - name: Create the gesansible User - RHEL/CentOS - with the appropriate group affiliations 
+    user: 
+      name: gesansible
+      comment: gesansible
+      home: /home/gesansible
+      shell: /bin/bash
+      update_password: always
+      password: '$1$fpdsecpa$S8gI0My9S8S4ARJFi.FIl/'
+      groups: gesansible,wheel
+  - name: Add the gesansible public key to the user account
+    authorized_key:
+      user: gesansible 
+      state: present
+      key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINZXDYGU7jtCCmcA8YMls7ynP7guB+A9/qf1n36LoK/o gesansible_svc'
+  - name: Ensure the account does not expire
+    command: 'chage -M 99999 -m 0 -W 7 gesansible' 
+  - name: Create the /etc/sudoers.d/ansible file
+    lineinfile: 
+      path: /etc/sudoers.d/ansible
+      line: | 
+        gesansible    ALL=(ALL)     NOPASSWD: ALL
+      create: yes
+...

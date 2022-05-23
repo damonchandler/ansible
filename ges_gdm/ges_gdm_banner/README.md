@@ -1,4 +1,4 @@
-Role - Gnome 3/GDM Configuration of the Login with IT Consent Banner
+Role - Gnome 3/GDM Configuration of the Login with GES IT Consent Banner
 =========
 
 This role configures the Gnome 3 (GDM) login interface on FPD informations systems according to the following:
@@ -15,18 +15,18 @@ This role configures the Gnome 3 (GDM) login interface on FPD informations syste
 * Places in the /etc/donf/db/local.d/00-nasa file.
 * Places in the /etc/dconf/db/local.d/locks/00-nasa.
 
-To satisfy the following ASCS Parameters:
+To satisfy the following Parameters:
 
-* NASA-ASCS-40558: Disable Automatic Login
-* NASA-ASCS-40561: Disable Ctrl-Alt-Del Reboot Key Sequence in GUI
-* NASA-ASCS-40562: Disable GUI Guest Login
-* NASA-ASCS-40565: Ensure Display Manager Banner is Enabled
-* NASA-ASCS-40566: Ensure Display Manager Provides the Proper Message Banner
-* NASA-ASCS-40567: Set the Login Number of Failures to the GUI Display Manager
-* NASA-ASCS-40568: Enable Screen Lock
-* NASA-ASCS-40569:Enable Screen Lock Idle Delay
+* Disable Automatic Login
+* Disable Ctrl-Alt-Del Reboot Key Sequence in GUI
+* Disable GUI Guest Login
+* Ensure Display Manager Banner is Enabled
+* Ensure Display Manager Provides the Proper Message Banner
+* Set the Login Number of Failures to the GUI Display Manager
+* Enable Screen Lock
+* Enable Screen Lock Idle Delay
 
-**End result: The system login will show a disabled user list (input for user name and password) with the NASA IT Consent Banner on the screen.**
+**End result: The system login will show a disabled user list (input for user name and password) with the GES IT Consent Banner on the screen.**
 
 Requirements
 ------------
@@ -72,4 +72,4 @@ Author Information
 
 Damon Chandler
     
-damon.i.chandler@nasa.gov
+dchandler@genesisesi.com

@@ -1,5 +1,5 @@
 ---
 # vars file for RHEL/CentOS
-time_server_rhel: 'server time.nasa.gov iburst prefer'
+time_server_rhel: 'server genesis-dc1.genesis.local iburst prefer'
 rhel_packages: 'chrony'
 ...
