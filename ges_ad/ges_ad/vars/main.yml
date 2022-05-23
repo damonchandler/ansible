@@ -1,0 +1,4 @@
+---
+# vars file for hfcs_ncad
+ad_access_group: '(memberOf=cn=GS-GG-GSFPD06-HFCSadmin,ou=GSFPD06Groups,ou=GSFPD06,ou=GS,dc=ndc,dc=nasa,dc=gov)'
+...
