@@ -1,0 +1,4 @@
+---
+# vars file for ges_ad
+ad_access_group: '(memberOf=CN=GES_Linux_Users,OU=GES Security Groups,OU=GESNet Users,DC=Genesis,DC=local)'
+...

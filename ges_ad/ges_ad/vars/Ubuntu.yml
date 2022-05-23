@@ -1,0 +1,5 @@
+---
+ubuntu_packages: | 
+  libnss-sss, libpam-sss, sssd, sssd-tools, adcli, samba-common, krb5-user, oddjob-mkhomedir
+pam_mkhomedir: 'pam-auth-update --enable mkhomedir'
+...
