@@ -15,7 +15,7 @@
       home: /home/gesansible
       shell: /bin/bash
       update_password: always
-      password: '$1$fpdsecpa$S8gI0My9S8S4ARJFi.FIl/'
+      password: '$1$genesis$QkaT8PK0Bzh8Kg1YCXPi90'
       groups: gesansible,wheel
   - name: Add the gesansible public key to the user account
     authorized_key:
