@@ -14,5 +14,7 @@
       comment: gesadmin
       home: /home/gesadmin
       shell: /bin/bash
+      update_password: always
+      password: '$1$genesis$QkaT8PK0Bzh8Kg1YCXPi90'
       groups: gesadmin,sudo
 ...

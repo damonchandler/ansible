@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  ignore_errors: true
+  roles:
+    - ges_audit/ges_auditd
+    - ges_baseline_remediation/ges_baseline_remediation
+    - ges_clamav/ges_clamav_install
+    - ges_fw/ges_firewall
+    - ges_gdm/ges_gdm_banner
+    - ges_network_time/ges_network_time
+    - ges_ssh/ges_ssh
+    - ges_ad/ges_ad
+...
