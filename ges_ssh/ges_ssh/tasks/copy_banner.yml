@@ -5,5 +5,5 @@
     dest: '{{ etc_directory }}/issue'
     owner: root
     group: root
-    mode: 0444
+    mode: 0644
 ...
