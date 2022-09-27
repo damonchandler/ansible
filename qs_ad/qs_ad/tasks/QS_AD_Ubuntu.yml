@@ -1,0 +1,63 @@
+---
+- name: Install Packages in Ubuntu
+  apt:
+    pkg: 
+      '{{ ubuntu_packages }}'
+    state: present
+    update_cache: yes
+- name: Configure Files
+  block:
+    - name: Modify the /etc/hosts file to match host names - standard and FQDN
+      template:
+        src: 'hosts_ubuntu.j2'
+        dest: /etc/hosts
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/sssd/sssd.conf file with QS domain parameters
+      template:
+        src: 'sssd_conf.j2'
+        dest: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: '0600'
+    - name: Copy the /usr/share/pam-configs/mkhomedir file
+      copy:
+        src: 'mkhomedir' 
+        dest: /usr/share/pam-configs/mkhomedir
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Copy the /etc/samba/smb.conf
+      copy:
+        src: 'smb.conf' 
+        dest: /etc/samba/smb.conf
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Copy the /etc/nsswitch.conf
+      copy:
+        src: 'nsswitch.conf' 
+        dest: /etc/nsswitch.conf
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Copy the /etc/krb5.conf
+      copy:
+        src: 'krb5.conf' 
+        dest: /etc/krb5.conf
+        owner: root
+        group: root
+        mode: '0644'
+- name: Directory creation and Commands
+  block:
+    - name: Create the /home/QS Directory
+      file:
+        path: /home/QS
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: Update the PAM setting to enable mkhomedir
+      command: '{{ pam_mkhomedir }}'
+...

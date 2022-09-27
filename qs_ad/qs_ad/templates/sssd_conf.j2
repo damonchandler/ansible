@@ -1,0 +1,26 @@
+[sssd]
+config_file_version = 2
+domains = QUANTUMSPACE.US
+services = nss, pam
+
+[domain/QUANTUMSPACE.US]
+enumerate = False
+cache_credentials = True
+dyndns_update = False
+id_provider = ad
+auth_provider = ad
+access_provider = permit
+ad_access_filter = {{ ad_access_group }}
+sudo_provider = ad
+ad_domain = quantumspace.us
+ad_server = [insert servers here]
+ldap_schema = ad
+ldap_id_mapping = True
+default_shell = /bin/bash
+override_shell = /bin/bash
+override_homedir = /home/QS/%u
+fallback_homedir = /home/QS/%u
+ldap_idmap_autorid_compat = True
+ldap_idmap_default_domain = quantumspace.us
+ad_gpo_ignore_unreadable = True
+ldap_idmap_range_size = 1000000

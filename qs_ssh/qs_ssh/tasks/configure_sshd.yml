@@ -1,0 +1,22 @@
+---
+- name: Put the QS OpenSSH Configuration in place - Ubuntu
+  template:
+    src: '{{ sshd_config_ubuntu }}'
+    dest: '{{ ssh_directory }}/sshd_config'
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    (ansible_facts['distribution'] == "Ubuntu") and 
+    (ansible_facts['distribution_version'] >= "18.04")
+- name: Put the QS OpenSSH Configuration in place - RHEL
+  template:
+    src: '{{ sshd_config_centos }}'
+    dest: '{{ ssh_directory }}/sshd_config'
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    (ansible_facts['os_family'] == "RedHat") and  
+    (ansible_facts['distribution_major_version'] >= "7")
+...
