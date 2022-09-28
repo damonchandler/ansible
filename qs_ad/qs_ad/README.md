@@ -56,14 +56,14 @@ The scope of the installation requirements are satisfied inside of the role conf
 
 Local Ansible install is also required in order to locally perform 'ansible-playbook' or 'ansible-pull' commands against the target - https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html.
 
-It is suggested to run the following Ansible roles in tandem with or as a part of the NCAD posturing process.
+It is suggested to run the following Ansible roles in tandem with or as a part of the AD posturing process.
 
 Role Variables
 --------------
 
 Variables exist in this role that copy and store the corresponding files, places them within the OS configuration or installs the required packages for each distribution type.
 
-    vars/main.yml - is only used to map the ad_access_group (mapped the the ad_access_filer option in the /etc/sssd/sssd.conf file) variable to the default Users OU ()
+    vars/main.yml - is only used to map the ad_access_group (mapped the the ad_access_filer option in the /etc/sssd/sssd.conf file) variable to the default Users OU (memberOf=ou=User Sync w/M365,dc=quantumspace,dc=us)
     vars/RedHat.yml
     vars/Ubuntu.yml
 
