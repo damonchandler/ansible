@@ -4,7 +4,7 @@
     name: audit
     state: present
 - name: Backup the Current /etc/audit/rules.d/ Directory
-  command: mv /etc/audit/rules.d/ /etc/audit/rules.d.{{ansible_date_time}}.bak/
+  command: mv /etc/audit/rules.d/ /etc/audit/rules.d.bak/
 - name: Create a New /etc/audit/rules.d/ Directory
   file:
     path: /etc/audit/rules.d

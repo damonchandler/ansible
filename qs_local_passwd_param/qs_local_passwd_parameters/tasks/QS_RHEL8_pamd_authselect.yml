@@ -19,7 +19,7 @@
         mode: '0644'
 - name: Authselect commands and service restart
   block:
-    - name: Run authselect against custom/nasa
+    - name: Run authselect against custom/qs
       command: authselect select custom/qs --force
     - name: Run authselect to enable with-faillock
       command: authselect enable-feature with-faillock

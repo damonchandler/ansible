@@ -76,7 +76,8 @@ file_deletion_events_ubuntu: |
   -a always,exit -F arch=b32 -S unlinkat -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
   -a always,exit -F arch=b32 -S rename -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
   -a always,exit -F arch=b32 -S renameat -F auid>=1000 -F auid!=4294967295 -F key=file_deletion_events
-immutable_ubuntu: '-e 2'
+immutable_ubuntu: |
+  -e 2
 kernel_module_loading_ubuntu: | 
   -w /usr/bin/kmod -p x -k kernel_module_loading
   -a always,exit -F arch=b32 -S create_module -F key=kernel_module_loading

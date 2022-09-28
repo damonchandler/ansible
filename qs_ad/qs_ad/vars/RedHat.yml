@@ -1,9 +1,9 @@
 ---
 rhel_packages: | 
    krb5-libs, krb5-workstation, sssd, oddjob-mkhomedir, realmd, adcli, samba-common-tools
-authselect_create: 'authselect create-profile quantumspace -b sssd'
+authselect_create: 'authselect create-profile qs -b sssd'
 authselect_apply: 'authselect apply-changes'
-authselect_sssd: 'authselect select custom/quantumspace --force'
+authselect_sssd: 'authselect select custom/qs --force'
 authselect_faillock: 'authselect enable-feature with-faillock'
 authselect_mkhomedir: 'authselect enable-feature with-mkhomedir'
 authconfig_update: 'authconfig --enablesssd --enablesssdauth --enablemkhomedir --update'

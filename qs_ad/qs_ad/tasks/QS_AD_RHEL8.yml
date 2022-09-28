@@ -58,7 +58,7 @@
         mode: '0755'
     - name: Run authselect to apply changes
       command: '{{ authselect_apply }}'
-    - name: Run authselect to create the custom/genesis context (if it does not already exist)
+    - name: Run authselect to create the custom/qs context (if it does not already exist)
       command: '{{ authselect_create }}'
     - name: Run authselect to select SSSD
       command: '{{ authselect_sssd }}'

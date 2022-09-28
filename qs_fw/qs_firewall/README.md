@@ -42,7 +42,7 @@ Invoking the Role
 
 *Ansible Tower/AWX*
 
-There is a Job Template in the directorate-level Ansible solution that deploys this role against the Org's target inventory and credentials - QS Firewall Configuration.
+There is a Job Template in the directorate-level Ansible solution that deploys this role against the Org's target inventory and credentials - **QS Firewall Configuration**.
 
 Author Information
 ------------------
