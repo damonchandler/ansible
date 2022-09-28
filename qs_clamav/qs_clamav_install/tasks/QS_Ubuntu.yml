@@ -1,0 +1,53 @@
+---
+- name: Install ClamAV Packages
+  apt:
+    pkg: 
+      '{{ ubuntu_packages }}'
+    state: present
+- name: Create the clam_scripts Directory
+  file:
+    path: '{{ clamscripts }}'
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+- name: Create QS_Weekly_Scan.sh 
+  file: 
+    path: '{{ clamscripts }}{{ weekly_scan }}'
+    state: touch
+    mode: 0755
+- name: Add required content to QS_Weekly_Scan.sh
+  blockinfile:
+    path: '{{ clamscripts }}{{ weekly_scan }}'
+    block: '{{ script_content }}'
+- name: Add crontab for weekly full / scan every Friday at 15:00
+  cron:
+    name: "QS Weekly ClamAV Scan"
+    minute: "00"
+    hour: "15"
+    weekday: "5"
+    job: "/clamscripts/QS_Weekly_Scan.sh"
+- name: Modify the freshclam.conf for definition checks every 6 hours
+  template: 
+    src: '{{ freshclam_ubuntu }}'
+    dest: '{{ clamav_ubuntu }}/freshclam.conf'
+    owner: clamav
+    group: adm
+    mode: 0444
+- name: Modify the clamd.conf with the correct parameters
+  template:
+    src: '{{ clamd_conf }}'
+    dest: '{{ clamav_ubuntu }}/clamd.conf'
+    owner: root
+    group: root
+    mode: 0644
+- name: Reload the clamav-daemon service
+  systemd:
+    state: reloaded
+    name: clamav-daemon
+- name: Restart the freshclam service
+  systemd:
+    state: restarted
+    enabled: yes
+    name: clamav-freshclam
+...

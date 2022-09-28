@@ -1,4 +1,4 @@
 ---
 - name: Backup the initial sshd_config file (in the event that fallback configuration is required)
-  command: 'cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak'
+  command: 'cp /etc/ssh/sshd_config /etc/ssh/sshd_config_{{ansible_date_time}}.bak'
 ...

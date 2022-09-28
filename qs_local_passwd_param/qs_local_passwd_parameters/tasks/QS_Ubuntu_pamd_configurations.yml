@@ -1,0 +1,63 @@
+---
+- name: Install libpam-cracklib for Ubuntu (so that the module - pam_cracklib.so exists)
+  apt:
+    name: libpam-cracklib
+    state: present
+    update_cache: yes
+- name: Update the /etc/pam.d/common-password pam_cracklib.so in Ubuntu
+  pamd:
+    name: common-password
+    type: password
+    control: requisite
+    new_control: required
+    module_path: pam_cracklib.so
+    module_arguments: try_first_pass,retry=5,difok=8,minlen=12,lcredit=-1,ucredit=-1,dcredit=-1,ocredit=-1
+    state: updated
+- name: Update the /etc/pam.d/common-password pam_unix.so in Ubuntu
+  pamd:
+    name: common-password
+    type: password
+    control: "[success=1 default=ignore]"
+    module_path: pam_unix.so
+    module_arguments: obscure,use_authtok,try_first_pass,sha512,remember=24
+    state: updated
+- name: Add pam_tally2 rule to /etc/pam.d/common-auth in Ubuntu
+  pamd:
+    name: common-auth
+    type: auth
+    control: "[success=1 default=ignore]"
+    module_path: pam_unix.so
+    new_type: auth
+    new_control: required
+    new_module_path: pam_tally2.so
+    module_arguments: onerr=fail,audit,silent,deny=5,unlock_time=900
+    state: before
+- name: Add pam_tally2 rule to /etc/pam.d/common-account in Ubuntu
+  pamd:
+    name: common-account
+    type: account
+    control: "[success=1 new_authtok_reqd=done default=ignore]"
+    module_path: pam_unix.so
+    new_type: account
+    new_control: required
+    new_module_path: pam_tally2.so
+    state: before
+- name: Add Management Banner to /etc/pam.d/common-password
+  lineinfile:
+    path: /etc/pam.d/common-password
+    regexp: '^# Managed by QS'
+    insertbefore: BOF
+    line: '# Managed by QS Ansible/AWX. CSET /etc/pam.d/common-password modification.'
+- name: Add Management Banner to /etc/pam.d/common-auth
+  lineinfile:
+    path: /etc/pam.d/common-auth
+    regexp: '^# Managed by QS'
+    insertbefore: BOF
+    line: '# Managed by QS Ansible/AWX. CSET /etc/pam.d/common-auth modification.'
+- name: Add Management Banner to /etc/pam.d/common-account
+  lineinfile:
+    path: /etc/pam.d/common-account
+    regexp: '^# Managed by QS'
+    insertbefore: BOF
+    line: '# Managed by QS Ansible/AWX. The /etc/pam.d/common-account modification.'
+...

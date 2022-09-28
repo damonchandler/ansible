@@ -1,0 +1,19 @@
+---
+- name: Gather OS Specific Vars
+  include_vars: '{{ item }}'
+  with_first_found: 
+    - '{{ ansible_os_family }}.yml'
+    - '{{ ansible_distribution }}.yml'
+    - 'main.yml'
+  tags: vars
+- import_tasks: QS_Ubuntu.yml
+  tags: ubuntu_clamav
+  when: 
+    (ansible_facts['distribution'] == "Ubuntu") and
+    (ansible_facts['distribution_version'] >= "18.04")
+- import_tasks: QS_RHEL.yml
+  tags: rhel_clamav
+  when:
+    (ansible_facts['os_family'] == "RedHat") and  
+    (ansible_facts['distribution_major_version'] >= "7")
+...

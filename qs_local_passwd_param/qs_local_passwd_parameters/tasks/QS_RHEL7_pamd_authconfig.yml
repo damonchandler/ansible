@@ -1,0 +1,123 @@
+---
+- name: Authconfig /etc/pam.d/system-auth configurations
+  block:
+    - name: Update the /etc/pam.d/system-auth pam_pwquality.so in RHEL
+      pamd:
+        name: system-auth
+        type: password
+        control: requisite
+        module_path: pam_pwquality.so
+        module_arguments: try_first_pass,local_users_only,retry=5
+    - name: Add pam_pwhistory account to /etc/pam.d/system-auth in RHEL
+      pamd:
+        name: system-auth
+        type: password
+        control: requisite
+        module_path: pam_pwquality.so
+        new_type: password 
+        new_control: requisite
+        new_module_path: pam_pwhistory.so
+        module_arguments: debug,use_authtok,remember=24
+        state: after
+    - name: Add pam_faillock auth/preauth requirement to /etc/pam.d/system-auth in RHEL
+      pamd:
+        name: system-auth
+        type: auth
+        control: required
+        module_path: pam_env.so
+        new_type: auth
+        new_control: required
+        new_module_path: pam_faillock.so
+        module_arguments: preauth,silent,audit,deny=5,unlock_time=900
+        state: after
+    - name: Add pam_faillock auth/authfail requirement to /etc/pam.d/system-auth in RHEL
+      pamd:
+        name: system-auth
+        type: auth
+        control: required
+        module_path: pam_deny.so
+        new_type: auth
+        new_control: required
+        new_module_path: pam_faillock.so
+        module_arguments: authfail,audit,deny=5,unlock_time=900
+        state: before
+    - name: Add pam_faillock account to /etc/pam.d/system-auth in RHEL
+      pamd:
+        name: system-auth
+        type: account
+        control: required
+        module_path: pam_unix.so
+        new_type: account
+        new_control: required
+        new_module_path: pam_faillock.so
+        state: before
+    - name: Modify the /etc/pam.d/system-auth to account for try_first_pass only 
+      pamd:
+        name: system-auth
+        type: auth 
+        control: sufficient
+        module_path: pam_unix.so
+        module_arguments: try_first_pass
+        state: updated
+- name: Authconfig /etc/pam.d/password-auth configurations
+  block:
+    - name: Update the /etc/pam.d/password-auth pam_pwquality.so in RHEL
+      pamd:
+        name: password-auth
+        type: password
+        control: requisite
+        module_path: pam_pwquality.so
+        module_arguments: try_first_pass,local_users_only,retry=5
+        state: updated
+    - name: Add pam_pwhistory account to /etc/pam.d/password-auth in RHEL
+      pamd:
+        name: password-auth
+        type: password
+        control: requisite
+        module_path: pam_pwquality.so
+        new_type: password 
+        new_control: requisite
+        new_module_path: pam_pwhistory.so
+        module_arguments: debug,use_authtok,remember=24
+        state: after
+    - name: Add pam_faillock auth/preauth requirement to /etc/pam.d/password-auth in RHEL
+      pamd:
+        name: password-auth
+        type: auth
+        control: required
+        module_path: pam_env.so
+        new_type: auth
+        new_control: required
+        new_module_path: pam_faillock.so
+        module_arguments: preauth,silent,audit,deny=5,unlock_time=900
+        state: after
+    - name: Add pam_faillock auth/authfail requirement to /etc/pam.d/password-auth in RHEL
+      pamd:
+        name: password-auth
+        type: auth
+        control: required
+        module_path: pam_deny.so
+        new_type: auth
+        new_control: required
+        new_module_path: pam_faillock.so
+        module_arguments: authfail,audit,deny=5,unlock_time=900
+        state: before
+    - name: Add pam_faillock account to /etc/pam.d/password-auth in RHEL
+      pamd:
+        name: password-auth
+        type: account
+        control: required
+        module_path: pam_unix.so
+        new_type: account
+        new_control: required
+        new_module_path: pam_faillock.so
+        state: before
+    - name: Modify the /etc/pam.d/password-auth to account for try_first_pass only 
+      pamd:
+        name: password-auth
+        type: auth 
+        control: sufficient
+        module_path: pam_unix.so
+        module_arguments: try_first_pass
+        state: updated
+...

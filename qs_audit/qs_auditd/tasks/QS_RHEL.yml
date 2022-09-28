@@ -1,0 +1,138 @@
+---
+- name: Install audit
+  dnf:
+    name: audit
+    state: present
+- name: Backup the Current /etc/audit/rules.d/ Directory
+  command: mv /etc/audit/rules.d/ /etc/audit/rules.d.{{ansible_date_time}}.bak/
+- name: Create a New /etc/audit/rules.d/ Directory
+  file:
+    path: /etc/audit/rules.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0750'
+- name: Write the auditd.conf
+  template:
+    src: '{{ auditd_conf_file_rhel }}'
+    dest: '{{ auditd_directory }}/auditd.conf'
+    owner: root
+    group: root
+    mode: 0640
+- name: Add audit=1 line in /etc/default/grub file
+  lineinfile: 
+    path: /etc/default/grub
+    state: present
+    regexp: '^(GRUB_CMDLINE_LINUX=(?!.*audit)\"[^\"]+)(\".*)'
+    backrefs: yes
+    line: '\1 audit=1\2'
+- name: Write audit rules
+  block:
+    - name: access_rules.rules
+      template: 
+        src: '{{ access_rules_file_rhel }}'
+        dest: '{{ rules_directory }}/access_rules.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: audit.rules
+      template: 
+        src: '{{ audit_rules_file_rhel }}'
+        dest: '{{ rules_directory }}/audit.rules'
+        owner: root
+        group: root
+        mode: 0644   
+    - name: audit_time_rules.rules
+      template: 
+        src: '{{ audit_time_rules_file_rhel }}'
+        dest: '{{ rules_directory }}/audit_time_rules.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: file_deletion_events.rules
+      template: 
+        src: '{{ file_deletion_events_file_rhel }}'
+        dest: '{{ rules_directory }}/file_deletion_events.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: immutable.rules
+      template: 
+        src: '{{ immutable_file_rhel }}'
+        dest: '{{ rules_directory }}/immutable.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: kernel_module_loading.rules
+      template: 
+        src: '{{ kernel_module_loading_file_rhel }}'
+        dest: '{{ rules_directory }}/kernel_module_loading.rules'
+        owner: root
+        group: root
+        mode: 0644   
+    - name: mac_modification.rules
+      template: 
+        src: '{{ mac_modification_file_rhel }}'
+        dest: '{{ rules_directory }}/mac_modification.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: networkconfig_modification.rules
+      template: 
+        src: '{{ networkconfig_modification_file_rhel }}'
+        dest: '{{ rules_directory }}/networkconfig_modification.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: privileged_commands.rules
+      template: 
+        src: '{{ privileged_commands_file_rhel }}'
+        dest: '{{ rules_directory }}/privileged_commands.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: sysadmin_actions.rules
+      template: 
+        src: '{{ sysadmin_actions_file_rhel }}'
+        dest: '{{ rules_directory }}/sysadmin_actions.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: unsuccessful-create.rules
+      template: 
+        src: '{{ unsuccessful_create_file_rhel }}'
+        dest: '{{ rules_directory }}/unsuccessful-create.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: unsuccessful-delete.rules
+      template: 
+        src: '{{ unsuccessful_delete_file_rhel }}'
+        dest: '{{ rules_directory }}/unsuccessful-delete.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: unsuccessful-modification.rules 
+      template: 
+        src: '{{ unsuccessful_modification_file_rhel }}'
+        dest: '{{ rules_directory }}/unsuccessful-modification.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: unsuccessful-perm-change.rules
+      template: 
+        src: '{{ unsuccessful_perm_change_file_rhel }}'
+        dest: '{{ rules_directory }}/unsuccessful-perm-change.rules'
+        owner: root
+        group: root
+        mode: 0644
+    - name: usergroup_modification_rules.rules
+      template: 
+        src: '{{ usergroup_modification_rules_file_rhel }}'
+        dest: '{{ rules_directory }}/usergroup_modification_rules.rules'
+        owner: root
+        group: root
+        mode: 0644
+- name: Reload new auditd rules 
+  command: augenrules --load
+...

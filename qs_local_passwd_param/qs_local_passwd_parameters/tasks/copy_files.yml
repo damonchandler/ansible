@@ -1,0 +1,16 @@
+---
+- name: Write the /etc/security/pwquality.conf file
+  template:
+    src: '{{ pw_quality }}'
+    dest: '{{ security_directory }}/pwquality.conf'
+    owner: root
+    group: root
+    mode: 0644
+- name: Write the /etc/login.defs file
+  template:
+    src: '{{ login_defs }}'
+    dest: '{{ etc_directory }}/login.defs'
+    owner: root
+    group: root
+    mode: 0644
+...

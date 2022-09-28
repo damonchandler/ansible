@@ -10,5 +10,6 @@
     - qs_gdm/qs_gdm_banner
     - qs_network_time/qs_network_time
     - qs_ssh/qs_ssh
+    - qs_local_passwd_param/qs_local_passwd_parameters
     - qs_ad/qs_ad
 ...
