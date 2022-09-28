@@ -1,0 +1,9 @@
+---
+# tasks file for fpd_local_passwd_change
+- import_tasks: root_password_change.yml
+  tags: root_passwd
+- import_tasks: qs_admin_password_change.yml
+  tags: qs_admin_passwd
+- import_tasks: qs_ansible_password_change.yml
+  tags: qs_ansible_passwd
+...
