@@ -1,0 +1,8 @@
+---
+# vars file for qs_local_passwd_change
+# 
+# Password Assumptions
+root_password_change: '$6$quantum$VKM1ZQhVDyFAuIBzStf.8pfwNz0D8GLksQX3ZsDGu0G03pWo3utTOu.ieY7SHNFMdZ8tvPG93qTUT.6QL3a3D/'
+qs_admin_password_change: '$6$quantum$VKM1ZQhVDyFAuIBzStf.8pfwNz0D8GLksQX3ZsDGu0G03pWo3utTOu.ieY7SHNFMdZ8tvPG93qTUT.6QL3a3D/'
+qs_ansible_password_change: '$6$quantum$VKM1ZQhVDyFAuIBzStf.8pfwNz0D8GLksQX3ZsDGu0G03pWo3utTOu.ieY7SHNFMdZ8tvPG93qTUT.6QL3a3D/'
+...

@@ -1,0 +1,24 @@
+---
+# vars file for qs_local_passwd_parameters
+#
+# Directory Assumptions
+etc_directory: '/etc'
+security_directory: '/etc/security'
+#
+# File Assumptions
+pw_quality: pwquality.j2
+login_defs: login_defs.j2  
+#
+## Configuration Assumptions
+pass_max_days: 'PASS_MAX_DAYS 60'
+pass_warn_age: 'PASS_WARN_AGE 14'
+pass_min_days: 'PASS_MIN_DAYS 1'
+pass_min_len: 'PASS_MIN_LEN 12'
+encrypt_method: 'ENCRYPT_METHOD SHA512'
+minlen: 'minlen = 12'
+dcredit: 'dcredit = -1'
+lcredit: 'lcredit = -1'
+ucredit: 'ocredit = -1'
+ocredit: 'ucredit = -1'
+difok: 'difok = 8'
+...

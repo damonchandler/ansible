@@ -1,0 +1,85 @@
+---
+- name: Create all QS-specific directories
+  block:
+    - name: Make the gdm.d directory in Ubuntu as it does not exist by default
+      file:
+        path: /etc/dconf/profile/gdm.d
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name:  Create the /etc/dconf/db/gdm.d/locks directory
+      file:
+        path: /etc/dconf/db/gdm.d/locks
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name:  Create the /etc/dconf/db/local.d directory
+      file:
+        path: /etc/dconf/db/local.d
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name:  Create the /etc/dconf/db/local.d/locks directory
+      file:
+        path: /etc/dconf/db/local.d/locks
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+- name: Add the QS-specific files
+  block:
+    - name: Configure the /etc/gdm3/custom.conf file
+      copy:
+        src: 'custom_conf' 
+        dest: /etc/gdm3/custom.conf
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/dconf/profile/gdm file
+      copy:
+        src: 'gdm'
+        dest: /etc/dconf/profile/gdm
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/dconf/profile/user file
+      copy:
+        src: 'user'
+        dest: /etc/dconf/profile/user
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/dconf/db/gdm.d/00-qs file
+      copy:
+        src: 'gdmd_00qs'
+        dest: /etc/dconf/db/gdm.d/00-qs
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/dconf/db/gdm.d/locks/00-qs file
+      copy:
+        src: 'gdmd_locks_00qs'
+        dest: /etc/dconf/db/gdm.d/locks/00-qs
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/dconf/db/local.d/00-qs file
+      copy:
+        src: 'locald_00qs'
+        dest: /etc/dconf/db/local.d/00-qs
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Create the /etc/dconf/db/local.d/locks/00-qs file
+      copy:
+        src: 'locald_locks_00qs'
+        dest: /etc/dconf/db/local.d/locks/00-qs
+        owner: root
+        group: root
+        mode: '0644'
+- name: Update dconf
+  command: dconf update
+...

@@ -1,0 +1,40 @@
+---
+- name: Authselect PAM Configurations
+  block:
+    - name: Create the Quantum Space profile
+      command: authselect create-profile qs -b sssd
+    - name: Copy in the password-auth file to /etc/authselect/custom/qs/
+      copy:
+        src: 'RHEL8/password-auth' 
+        dest: /etc/authselect/custom/qs/password-auth
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Copy in the system-auth file to /etc/authselect/custom/qs/
+      copy:
+        src: 'RHEL8/system-auth' 
+        dest: /etc/authselect/custom/qs/system-auth
+        owner: root
+        group: root
+        mode: '0644'
+- name: Authselect commands and service restart
+  block:
+    - name: Run authselect against custom/qs
+      command: authselect select custom/qs --force
+    - name: Run authselect to enable with-faillock
+      command: authselect enable-feature with-faillock
+    - name: Run authselect to enable with-mkhomedir
+      command: authselect enable-feature with-mkhomedir
+- name: Ensure required services are started/enabled
+  block:
+    - name: Restart SSSD
+      systemd:
+        name: sssd
+        state: restarted
+        enabled: yes
+    - name: Restart ODDJOBD
+      systemd:
+        name: oddjobd
+        state: restarted
+        enabled: yes
+...

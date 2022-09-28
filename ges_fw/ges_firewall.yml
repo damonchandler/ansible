@@ -1,7 +1,0 @@
----
-- hosts: all
-  become: true
-  ignore_errors: true
-  roles:
-    - ges_firewall
-...

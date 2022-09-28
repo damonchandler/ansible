@@ -1,0 +1,20 @@
+---
+# tasks file for qs_local_passwd_parameters
+- import_tasks: copy_files.yml
+  tags: logindefs_pwquality
+- import_tasks: QS_Ubuntu_pamd_configurations.yml
+  tags: ubuntu_pamd
+  when: 
+    (ansible_facts['distribution'] == "Ubuntu") and 
+    (ansible_facts['distribution_version'] >= "18.04")
+- import_tasks: QS_RHEL7_pamd_authconfig.yml
+  tags: rhel7_pamd
+  when:  
+    (ansible_facts['os_family'] == "RedHat") and  
+    (ansible_facts['distribution_major_version'] == "7")
+- import_tasks: QS_RHEL8_pamd_authselect.yml
+  tags: rhel8_pamd
+  when:  
+    (ansible_facts['os_family'] == "RedHat") and  
+    (ansible_facts['distribution_major_version'] == "8")
+...

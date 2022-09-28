@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: Create the /etc/sudoers.d/quantumspace file
+      lineinfile: 
+        path: /etc/sudoers.d/quantumspace
+        line: | 
+          qs_admin    ALL=(ALL)     NOPASSWD: ALL
+        create: yes
+...
