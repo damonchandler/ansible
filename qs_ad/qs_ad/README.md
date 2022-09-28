@@ -63,7 +63,7 @@ Role Variables
 
 Variables exist in this role that copy and store the corresponding files, places them within the OS configuration or installs the required packages for each distribution type.
 
-    vars/main.yml - is only used to map the ad_access_group (mapped the the ad_access_filer option in the /etc/sssd/sssd.conf file) variable to the default Users OU (memberOf=ou=User Sync w/M365,dc=quantumspace,dc=us)
+    vars/main.yml - is only used to map the ad_access_group (mapped the the ad_access_filer option in the /etc/sssd/sssd.conf file) variable to the default Users OU (memberOf=ou=User Sync w/M365,dc=quantumspace,dc=local)
     vars/RedHat.yml
     vars/Ubuntu.yml
 
