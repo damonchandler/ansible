@@ -1,33 +1,33 @@
 ---
-- name: Create the gesansible User/Group on RHEL/CentOS Systems
+- name: Create the qs_ansible User/Group on RHEL/CentOS Systems
   hosts: all
   become: true
   ignore_errors: true
   tasks:
-  - name: Create the 'gesansible' Group
+  - name: Create the 'qs_ansible' Group
     group:
-      name: gesansible
+      name: qs_ansible
       state: present
-  - name: Create the gesansible User - RHEL/CentOS - with the appropriate group affiliations 
+  - name: Create the qs_ansible User - RHEL/CentOS - with the appropriate group affiliations 
     user: 
-      name: gesansible
-      comment: gesansible
-      home: /home/gesansible
+      name: qs_ansible
+      comment: qs_ansible
+      home: /home/qs_ansible
       shell: /bin/bash
       update_password: always
-      password: '$1$genesis$QkaT8PK0Bzh8Kg1YCXPi90'
-      groups: gesansible,wheel
-  - name: Add the gesansible public key to the user account
+      password: '$6$quantum$VKM1ZQhVDyFAuIBzStf.8pfwNz0D8GLksQX3ZsDGu0G03pWo3utTOu.ieY7SHNFMdZ8tvPG93qTUT.6QL3a3D/'
+      groups: qsansible,wheel
+  - name: Add the qs_ansible public key to the user account
     authorized_key:
-      user: gesansible 
+      user: qs_ansible 
       state: present
-      key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINZXDYGU7jtCCmcA8YMls7ynP7guB+A9/qf1n36LoK/o gesansible_svc'
+      key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDL2V3V1PrtMkw7MQ5QrvCj0Avn2530f0kahweXM7OH8skabCT2nTgi328069rEfVX10Sl6zcIeuJh3ge2fTHsE76sHRBE83H/gFq5Zi/Drl9Hxr9sp9eknoD84CvCDlaJP+FIP5NtPBHH5Im0DMznHjc0AfD7mG0O40wBj04PF0HmjzDU9NbGbWfoLa0aVudcPY5IBDwaRtLVa9hB7L4Yl277aNK9dHcnsKpi5KDJUAaMS/kDk6ZaNN+XSaXLjUX32xmZrvAAcTcFxb/N9DKZcJzh/rRRYP/l3I7wHIUooD1ul2epenGc/kKM0IhcHmDCDDEn+nCD/TLiTEL2u21V4myNck2uzxYeJ0V0UGdUdrDp1w14lmQs5rl6imktUo1zz/i7ONpJVGk2A79mog6x1oGGDWBDMdXPAVEUxznkh2/qHmruCKst0/bJmvSgssjUr1UydcN3bmMPNmkYZaY6YKxis6PmumIUl9n8I7pUleJZ29Vmdk584FwuEnKbouW1ncwbw8CvK9+KvmERUPhwNevyrnCw0zFmKSAYV1wC5tpSWuMePRpLhknjwlDDqC+nAwtD2bzGqe7pFZC4UfZf3xuNO5wFZPosQqdsd8F5vjLg210DuS6uZ7KWg1dCtASV+zGVoOdLg2KxBP8nFyaNbxnsoIpVQobvQJ1dE889rQQ== qsansible_svc'
   - name: Ensure the account does not expire
-    command: 'chage -M 99999 -m 0 -W 7 gesansible' 
+    command: 'chage -M 99999 -m 0 -W 7 qs_ansible' 
   - name: Create the /etc/sudoers.d/ansible file
     lineinfile: 
       path: /etc/sudoers.d/ansible
       line: | 
-        gesansible    ALL=(ALL)     NOPASSWD: ALL
+        qs_ansible    ALL=(ALL)     NOPASSWD: ALL
       create: yes
 ...

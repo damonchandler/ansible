@@ -1,7 +1,7 @@
 Role - Quantum Space Linux AD Posturing
 =========
 
-This role installs all required packages and configures a Linux target for binding to the Genesis Active Directory (AD) domain - RHEL-based distributions >= 7 and Ubuntu >= 18.04.
+This role installs all required packages and configures a Linux target for binding to the Quantum Space Active Directory (AD) domain - RHEL-based distributions >= 7 and Ubuntu >= 18.04.
 
 It does the following:
 
@@ -21,7 +21,7 @@ _RHEL 8-based_
 * Modifies the /etc/hosts file with mapping of the '127.0.0.1' entry to both short name and FQDN.
 * Copies in the /etc/sssd/sssd.conf file (root:root 0600).
 * Copies in the /etc/samba/smb.conf file (root:root 0640).
-* Modifies the /etc/oddjobd.conf.d/oddjob-mkhomedir.conf file with the right permission to map to AD user home directories created under /home/GES/ (0077).
+* Modifies the /etc/oddjobd.conf.d/oddjob-mkhomedir.conf file with the right permission to map to AD user home directories created under /home/QS/ (0077).
 * Adjusts the /etc/authselect/user-nsswitch.conf parameters (root:root 0644).
 * Runs the 'authselect apply-changes' command.
 * Copies in the /etc/krb5.conf file (root:root 0644).
@@ -63,7 +63,7 @@ Role Variables
 
 Variables exist in this role that copy and store the corresponding files, places them within the OS configuration or installs the required packages for each distribution type.
 
-    vars/main.yml - is only used to map the ad_access_group (mapped the the ad_access_filer option in the /etc/sssd/sssd.conf file) variable to the default Users OU (memberOf=cn=GS-GG-GSFPD06-HFCSadmin)
+    vars/main.yml - is only used to map the ad_access_group (mapped the the ad_access_filer option in the /etc/sssd/sssd.conf file) variable to the default Users OU ()
     vars/RedHat.yml
     vars/Ubuntu.yml
 
@@ -81,15 +81,15 @@ Invoking the Role
 
 *Repo Clone and Run Locally*
 
-**git clone https://ansible.git (HTTP)** 
+**git clone https://github.com/damonchandler/ansible.git (HTTP)** 
 
-**git clone ssh://git@ansible.git (SSH)**
+**git clone git@github.com:damonchandler/ansible.git (SSH)**
 
-**ansible-playbook -c local -i localhost, ansible/qs_ad/qs_ad.yml -K**
+**ansible-playbook -c local -i localhost, qs_ad/qs_ad.yml -K**
 
 *Ansible Pull*
 
-**ansible-pull -U https:///ansible.git -c local -i localhost, qs_ad/qs_ad.yml -K** 
+**ansible-pull -U https://github.com/damonchandler/ansible.git -c local -i localhost, qs_ad/qs_ad.yml -K** 
 
 *Ansible Tower/AWX*
 

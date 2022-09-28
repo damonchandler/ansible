@@ -1,7 +1,7 @@
 galaxy_info:
   author: Damon Chandler
-  description: GES Ansible Role to Configure Network Time (NTP/Chrony)
-  company: Genesis Engineering - Information Technology
+  description: QS Ansible Role to Configure Network Time (NTP/Chrony)
+  company: Quantum Space - Information Technology
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

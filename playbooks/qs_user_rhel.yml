@@ -4,17 +4,17 @@
   become: true
   ignore_errors: true
   tasks:
-  - name: Create the 'gesadmin' Group
+  - name: Create the 'qs_admin' Group
     group:
-      name: gesadmin
+      name: qs_admin
       state: present
-  - name: Create the gesadmin User - RHEL/CentOS - with the appropriate group affiliations 
+  - name: Create the qs_admin User - RHEL/CentOS - with the appropriate group affiliations 
     user: 
-      name: gesadmin
-      comment: gesadmin
-      home: /home/gesadmin
+      name: qs_admin
+      comment: qs_admin
+      home: /home/qs_admin
       shell: /bin/bash
       update_password: always
-      password: '$1$genesis$QkaT8PK0Bzh8Kg1YCXPi90'
-      groups: gesadmin,wheel
+      password: '$6$quantum$VKM1ZQhVDyFAuIBzStf.8pfwNz0D8GLksQX3ZsDGu0G03pWo3utTOu.ieY7SHNFMdZ8tvPG93qTUT.6QL3a3D/'
+      groups: qs_admin,wheel
 ...

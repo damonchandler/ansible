@@ -1,4 +1,4 @@
 ---
 # vars file for ges_ad
-ad_access_group: '(memberOf=CN=,DC=quantumspace,DC=us)'
+ad_access_group: '(memberOf=ou=User Sync w/M365,dc=quantumspace,dc=us)'
 ...

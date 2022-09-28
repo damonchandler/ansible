@@ -1,0 +1,6 @@
+---
+# vars file for Ubuntu
+time_server_ubuntu: 'server time.nist.gov'
+ubuntu_packages: |
+  ntp, ntpdate
+...

@@ -17,7 +17,7 @@
     state: stopped
     name: ntp
 - name: Perform an ntpdate sync against the Genesis domain controller
-  command: ntpdate -q genesis-dc1.genesis.local
+  command: ntpdate -q time.nist.gov
 - name: Start the NTP service
   systemd:
     state: started
