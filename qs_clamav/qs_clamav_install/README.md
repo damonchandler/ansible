@@ -77,7 +77,7 @@ Invoking the Role
 
 *Ansible Tower/AWX*
 
-There is a Job Template in the GES Ansible solution that deploys this role against the Org's target inventory and credentials - **QS ClamAV Configuration**.  Ansible tagging can be selected while grooming the workflow for run against targets using the **Job Tags** or **Skip Tags** prompt.
+There is a Job Template in the QS Ansible solution that deploys this role against the Org's target inventory and credentials - **QS ClamAV Configuration**.  Ansible tagging can be selected while grooming the workflow for run against targets using the **Job Tags** or **Skip Tags** prompt.
 
 Author Information
 ------------------

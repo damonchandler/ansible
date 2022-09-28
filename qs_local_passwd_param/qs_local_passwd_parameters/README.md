@@ -1,7 +1,7 @@
 Role - QS Local Password Parameters Implementation
 =========
 
-This role applies local (pam.d) password parameters against RHEL-based distributions >= 7 and Ubuntu >= 16.04.  It applies the following:
+This role applies local (pam.d) password parameters against RHEL-based distributions >= 7 and Ubuntu >= 18.04.  It applies the following:
 
 * Applies parameters to the /etc/login.defs file.
 * Applies parameters to the /etc/security/pwquality.conf file.
@@ -64,7 +64,7 @@ Invoking the Role
 
 *Ansible Pull*
 
-**ansible-pull -U https://github.com/damonchandler/ansible.git -c local -i localhost, fpd_local_passwd_parameters.yml** 
+**ansible-pull -U https://github.com/damonchandler/ansible.git -c local -i localhost, qs_local_passwd_param/qs_local_passwd_parameters.yml** 
 
 *Ansible Tower/AWX*
 

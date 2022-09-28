@@ -95,7 +95,7 @@ This role can be deployed in several ways:
 
 *AWX/Ansible Tower*
 
-If you have access to the FPD Ansible Tower/AWX instance, this role is updated as a universal Job Template (Resources >> Templates): "FPD Baseline Remediation."  It can be run against the target project's self-integrated inventory with the user's declared machine credentials/SSH keys.  
+If you have access to the QS Ansible Tower/AWX instance, this role is updated as a universal Job Template (Resources >> Templates): **QS Baseline Remediation**.  It can be run against the target project's self-integrated inventory with the user's declared machine credentials/SSH keys.  
 
 Author Information
 ------------------

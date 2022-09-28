@@ -47,7 +47,7 @@ Invoking the Role
 
 *Ansible Tower/AWX*
 
-There is a Job Template in the directorate-level Ansible solution that deploys this role against Quantum Space IT's target inventory and credentials - QS Network Time.
+There is a Job Template in the QS Ansible solution that deploys this role against Quantum Space IT's target inventory and credentials - **QS Network Time**.
 
 Author Information
 ------------------

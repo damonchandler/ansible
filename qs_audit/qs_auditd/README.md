@@ -40,8 +40,8 @@ Tags
 
 Ansible tagging is now integrated in the tasks/main.yml in order to enforce collective deployments (--tags) or skipping (--skip-tags) of role aspects:
 
-    rhel_audit - Used in tandem with the tasks/FPD_RHEL_CentOS.yml role component.
-    ubuntu_audit - Used in tandem with the tasks/FPD_RHEL.yml role component.
+    rhel_audit - Used in tandem with the tasks/QS_RHEL.yml role component.
+    ubuntu_audit - Used in tandem with the tasks/QS_UBuntu.yml role component.
 
 Invoking the Role
 ----------------

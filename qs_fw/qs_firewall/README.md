@@ -1,7 +1,7 @@
 Role - QS Firewall (Uncomplicated Firewall and FirewallD) Configuration Against Linux Information Systems
 =========
 
-This role configures the application firewall (Uncomplicated Firewall/UFW for Ubuntu >= 18.04; FirewallD for RHEL-based distributions >= 7) on GES informations systems according to the following:
+This role configures the application firewall (Uncomplicated Firewall/UFW for Ubuntu >= 18.04; FirewallD for RHEL-based distributions >= 7) on QS informations systems according to the following:
 
 * Ensures inbound access is restricted to SSH (22/tcp).  Applies this rule against the default FirewallD profile.
 * Ensures all outbound access is allowed.
@@ -13,7 +13,7 @@ Requirements
 ------------
 Git is required to perform any cloning commands.
 
-The application-based firewall is generally installed by default in the chosen Linux targets.  The roles does also perform an install task (using the yum or apt modules) in the event that the chosen distribution do not otherwise have the application (and all dependencies) installed already.
+The application-based firewall is generally installed by default in the chosen Linux targets.  The roles does also perform an install task (using the yum or apt modules) in the event that the chosen distribution does not otherwise have the application (and all dependencies) installed.
 
 Local Ansible install is also required in order to locally perform 'ansible-playbook' or 'ansible-pull' commands against the target - https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html.
 
@@ -38,7 +38,7 @@ Invoking the Role
 
 *Ansible Pull*
 
-**ansible-pull -U https://github.com/damonchandler/ansible.git -c local -i localhost, fpd_firewall.yml** 
+**ansible-pull -U https://github.com/damonchandler/ansible.git -c local -i localhost, qs_fw/qs_firewall.yml** 
 
 *Ansible Tower/AWX*
 

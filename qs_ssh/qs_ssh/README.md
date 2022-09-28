@@ -3,7 +3,7 @@ Role - QS Secure Shell (SSH) Configuration
 
 This role configures SSH against Linux information systems.    
 
-Applicability: RHEL-based distributions >= 7 and Ubuntu >= 16.04
+Applicability: RHEL-based distributions >= 7 and Ubuntu >= 18.04
 
 It performs the following:
  
@@ -40,7 +40,7 @@ Invoking the Role
 
 *Ansible Tower/AWX*
 
-There is a Job Template in the QS Ansible solution that deploys this role against Quantum Space IT's target inventory and credentials - QS SSH Configuration.
+There is a Job Template in the QS Ansible solution that deploys this role against Quantum Space IT's target inventory and credentials - **QS SSH Configuration**.
 
 Author Information
 ------------------

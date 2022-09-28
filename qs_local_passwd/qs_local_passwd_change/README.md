@@ -13,7 +13,7 @@ Git is required to perform any cloning commands.
 
 Local Ansible install is also required in order to locally perform 'ansible-playbook' or 'ansible-pull' commands against the target - https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html.
 
-The vars/main.yml file must have the following parameters (static) populated with a encrypted/hashed password in order to work:
+The vars/main.yml file must have the following parameters (static) populated with an encrypted/hashed password in order to work:
 
 * root_password_change
 * qs_admin_password_change
@@ -29,9 +29,9 @@ or
 
 openssl passwd -6 -salt (*salted_passphrase_to_be_included_in_the_hash*)
 
-(*The second option allows you to provide a hidden password at terminal versus the python3 method which may place your intended password into bash history.*)
+(*The second option allows you to provide a hidden password at terminal versus the python3 method which may place your intended password into bash history*)
 
-The parameters can also be invoked dynamically by passing the '-e' option when running Ansible locally or via ansible-pull.  This can also be set in Ansible Tower/AWX as an extra var in YAML of JSON format.  As follows:
+The parameters can also be invoked dynamically by passing the '-e' option when running Ansible locally or via ansible-pull.  This can also be set in Ansible Tower/AWX as an extra var in YAML or JSON format.  As follows:
 
 ansible-playbook or ansible-pull
 
@@ -48,9 +48,9 @@ Tags
 
 Ansible tagging is now integrated in the tasks/main.yml in order to enforce collective deployments (--tags) or skipping (--skip-tags) of role aspects:
 
-    root_passwd - Only change root password and configure 60/14/1 against the parameters.
-    qs_admin_passwd - Only change fpdadmin password and configure 60/14/1 against the parameters.
-    qs_ansible_passwd - Only change fpd_ansible password and configure 60/14/1 against the parameters.
+    root_passwd - Only change root password.
+    qs_admin_passwd - Only change qs_admin password.
+    qs_ansible_passwd - Only change qs_ansible password.
 
 Invoking the Role
 ----------------

@@ -13,7 +13,7 @@ This role configures the Gnome 3 (GDM) login interface on QS informations system
 * Places in the /etc/dconf/db/gdm.d/00-qs file.
 * Places in the /etc/dconf/db/gdm.d/locks/00-qs file.
 * Places in the /etc/donf/db/local.d/00-qs file.
-* Places in the /etc/dconf/db/local.d/locks/00-qs.
+* Places in the /etc/dconf/db/local.d/locks/00-qs file.
 
 To satisfy the following Parameters:
 
