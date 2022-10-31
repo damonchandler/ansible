@@ -1,0 +1,39 @@
+---
+- hosts: all
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: Install the required packages if they are not otherwise
+      apt: 
+        pkg:
+        - curl
+        - gpg
+        state: present
+    - name: Add the Microsoft signing key
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+    - name: Add the Microsoft Repository to Ubuntu sources
+      apt_repository:
+        repo: deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/ubuntu/20.04/prod focal main
+        state: present
+        filename: microsoft-ubuntu-focal-prod
+    - name: Add the Microsoft Edge Browser Repository to Ubuntu Sources
+      apt_repository:
+        repo: deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main
+        state: present
+        filename: microsoft-edge-dev
+    - name: Add the VS Code Repository if it does not exist
+      apt_repository:
+        repo: deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
+        state: present
+        filename: vscode
+        update_cache: yes
+    - name: Install the Company Portal, VS Code, and Edge Browser Applications in Ubuntu
+      apt:
+        pkg: 
+        - code
+        - intune-portal
+        - micorsoft-edge-stable
+        state: present
+...
